@@ -1,0 +1,22 @@
+TODO
+    Player
+        Wall Slide
+        Melee Attack
+        Ranged Attack
+        Switch Attack
+        Double Jump
+        Particles
+
+    Enemy
+        AI
+
+    Stages
+        Level Design
+
+    Main Menu
+
+    Finishing
+
+    Multiplayer (If Possible)
+    
+    
