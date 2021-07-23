@@ -11,7 +11,9 @@ public class CameraFollow : MonoBehaviour
     void Awake(){
         playerController = new PlayerController();
         playerSpeed = playerController.getMovementSpeed();
-        
+    }
+
+    void Start(){
     }
 
     void Update()
@@ -19,13 +21,8 @@ public class CameraFollow : MonoBehaviour
         float interpolation = playerSpeed * Time.deltaTime;
         Vector3 position = gameObject.transform.position;
 
-        if(player.transform.position.x > 0){    
-            position.x = Mathf.Lerp(gameObject.transform.position.x, player.transform.position.x, interpolation);
-        }
-
-        if(player.transform.position.y > 0f){
-            position.y = Mathf.Lerp(gameObject.transform.position.y, player.transform.position.y, interpolation);
-        }
+        position.x = Mathf.Lerp(gameObject.transform.position.x, player.transform.position.x, interpolation);        
+        position.y = Mathf.Lerp(gameObject.transform.position.y, player.transform.position.y, interpolation);
         
         gameObject.transform.position = position;
     }
