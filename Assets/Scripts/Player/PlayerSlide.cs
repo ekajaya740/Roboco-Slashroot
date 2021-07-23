@@ -15,7 +15,7 @@ public class PlayerSlide : MonoBehaviour
 
     private Rigidbody2D playerRB;
     
-    private PlayerController playerController;
+    private PlayerMove playerMove;
     private PlayerJump playerJump;
 
 
@@ -28,13 +28,13 @@ public class PlayerSlide : MonoBehaviour
     {
         playerRB = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
-        playerController = GetComponent<PlayerController>();
+        playerMove = GetComponent<PlayerMove>();
         playerJump = GetComponent<PlayerJump>();
     }
 
     void Update()
     {
-        isFacingRight = playerController.isFacingRight;
+        isFacingRight = playerMove.isFacingRight;
         slideAnimHandler();
     }
 

@@ -5,15 +5,12 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private GameObject player;
-    private PlayerController playerController;
+    private PlayerMove playerMove;
     private float playerSpeed;
 
     void Awake(){
-        playerController = new PlayerController();
-        playerSpeed = playerController.movementSpeed;
-    }
-
-    void Start(){
+        playerMove = new PlayerMove();
+        playerSpeed = playerMove.movementSpeed;
     }
 
     void Update()
