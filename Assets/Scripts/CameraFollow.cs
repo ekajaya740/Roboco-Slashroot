@@ -10,7 +10,7 @@ public class CameraFollow : MonoBehaviour
 
     void Awake(){
         playerController = new PlayerController();
-        playerSpeed = playerController.getMovementSpeed();
+        playerSpeed = playerController.movementSpeed;
     }
 
     void Start(){

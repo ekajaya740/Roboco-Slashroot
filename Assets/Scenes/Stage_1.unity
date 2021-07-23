@@ -402,8 +402,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1822207138}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 1822207141}
+        m_TargetAssemblyTypeName: PlayerJump, Assembly-CSharp
         m_MethodName: PointerJump
         m_Mode: 1
         m_Arguments:
@@ -3285,9 +3285,10 @@ GameObject:
   - component: {fileID: 1822207133}
   - component: {fileID: 1822207137}
   - component: {fileID: 1822207136}
-  - component: {fileID: 1822207138}
   - component: {fileID: 1822207139}
+  - component: {fileID: 1822207138}
   - component: {fileID: 1822207140}
+  - component: {fileID: 1822207141}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3439,13 +3440,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ed658a13e0d8bd4e96ec3db57a7788c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFacingRight: 0
-  platformLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  wallsLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
   playerBulletRef: {fileID: 1753845362087353520, guid: d93e786e6036cc849ae60e0aeb393fc1, type: 3}
   playerBulletPos: {fileID: 1163736712}
 --- !u!58 &1822207139
@@ -3476,6 +3470,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050efc648dc3b5a48a491fb2bc3b6367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1822207141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822207132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71283ea80c5bdcc42a2d8a08c187bfee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  wallsLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &1875394632
 GameObject:
   m_ObjectHideFlags: 0

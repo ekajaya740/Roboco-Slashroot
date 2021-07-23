@@ -16,6 +16,8 @@ public class PlayerSlide : MonoBehaviour
     private Rigidbody2D playerRB;
     
     private PlayerController playerController;
+    private PlayerJump playerJump;
+
 
     void Awake()
     {
@@ -27,6 +29,7 @@ public class PlayerSlide : MonoBehaviour
         playerRB = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
+        playerJump = GetComponent<PlayerJump>();
     }
 
     void Update()
@@ -64,7 +67,7 @@ public class PlayerSlide : MonoBehaviour
     }
     
     public void PointerSlide(){
-        if(playerController.isGrounded()){
+        if(playerJump.isGrounded()){
             isSlide = true;
         }
     }
