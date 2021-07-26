@@ -18,6 +18,8 @@ public class PlayerAttack : MonoBehaviour
 
     private PlayerMove playerMove;
     private PlayerJump playerJump;
+    private PlayerSlide playerSlide;
+    private PlayerMeleeDetect playerMeleeDetect;
 
     [SerializeField] private Object playerBulletRef;
     [SerializeField] private GameObject playerBulletPos;
@@ -25,7 +27,7 @@ public class PlayerAttack : MonoBehaviour
     void Awake(){
         isAttack = false;
         isMelee = false;
-        atkCooldown = 1f;
+        atkCooldown = 1.5f;
         whichWeaponNotBuffed = 'M';
         atkCooldownCount = 0f;
     }
@@ -34,7 +36,9 @@ public class PlayerAttack : MonoBehaviour
     {
         playerMove = GetComponent<PlayerMove>();
         playerJump = GetComponent<PlayerJump>();
+        playerSlide = GetComponent<PlayerSlide>();
         playerAnimator = GetComponent<Animator>();
+        playerMeleeDetect = GetComponent<PlayerMeleeDetect>();
     }
 
     void Update()
@@ -43,8 +47,16 @@ public class PlayerAttack : MonoBehaviour
         attackHandler();
     }
 
+    void FixedUpdate(){
+        if(!isAttack){
+            attackDamageCalc();
+        }
+        print(playerMeleeDetect);
+    }
+
     private void attackHandler(){
-        if(isAttack && atkCooldownCount > atkCooldown){
+        isMelee = playerMeleeDetect.isMelee;
+        if(isAttack && atkCooldownCount > atkCooldown && !playerSlide.isSlide && !playerMove.isMove){
             playerAnimator.SetTrigger("attack");
 
             if(isMelee && playerJump.isGrounded()){
@@ -67,7 +79,6 @@ public class PlayerAttack : MonoBehaviour
                 bulletObj.transform.position = new Vector3(playerBulletPos.transform.position.x, playerBulletPos.transform.position.y, playerBulletPos.transform.position.z);
             }
 
-            attackDamageCalc();
             
             isAttack = false;
             atkCooldownCount = 0;
@@ -76,7 +87,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void attackCooldownHandler(){
         if(atkCooldownCount <= atkCooldown + .1f){
-            atkCooldownCount += Time.deltaTime;
+            atkCooldownCount += Time.fixedDeltaTime;
         }
     }
     
@@ -94,16 +105,16 @@ public class PlayerAttack : MonoBehaviour
     }
 
     // Trigger Detect
-    void OnTriggerEnter2D(Collider2D collider){
-        if(collider.gameObject.tag == "Enemy"){
-            isMelee = true;
-        }
-    }
+    // void OnTriggerEnter2D(Collider2D collider){
+    //     if(collider.gameObject.tag == "Enemy"){
+    //         isMelee = true;
+    //     }
+    // }
 
-    void OnTriggerExit2D(Collider2D collider){
-        if(collider.gameObject.tag == "Enemy"){
-            isMelee = false;
-        }
-    }
+    // void OnTriggerExit2D(Collider2D collider){
+    //     if(collider.gameObject.tag == "Enemy"){
+    //         isMelee = false;
+    //     }
+    // }
 
 }

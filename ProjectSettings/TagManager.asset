@@ -15,7 +15,7 @@ TagManager:
   - Water
   - UI
   - Platforms
-  - Wall
+  - Flag
   - 
   - 
   - 
@@ -41,6 +41,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Flag
+    uniqueID: 4225594815
+    locked: 0
   - name: Background
     uniqueID: 2767345581
     locked: 0

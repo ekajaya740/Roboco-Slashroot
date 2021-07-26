@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class PlayerSlide : MonoBehaviour
 {
-    private bool isSlide;
+    public bool isSlide{get; set;}
     private bool isFacingRight;
 
     private float slidePower;
     private float maxSlideTime;
-    private float slideTimer;
+    public float slideTimer;
+
+    private float initialSlideCooldown;
+    private float slideCooldown;
 
     private Animator playerAnimator;
 
@@ -23,6 +26,8 @@ public class PlayerSlide : MonoBehaviour
     {
         maxSlideTime = .5f;
         slidePower = 200f;
+        initialSlideCooldown = 1f;
+        slideCooldown = initialSlideCooldown;
     }
     void Start()
     {
@@ -40,7 +45,8 @@ public class PlayerSlide : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(isSlide){
+        slideCooldownHandler();
+        if(isSlide && !playerMove.isMove && slideCooldown >= initialSlideCooldown){
             slideTimer += Time.deltaTime;
             Vector3 slideDirection = Vector3.zero;
             if(isFacingRight){
@@ -52,6 +58,7 @@ public class PlayerSlide : MonoBehaviour
 
             transform.Translate(slideDirection);
             if(slideTimer > maxSlideTime){
+                slideCooldown = 0;
                 isSlide = false;
                 slideTimer = 0;
             }
@@ -61,14 +68,21 @@ public class PlayerSlide : MonoBehaviour
     private void slideAnimHandler(){
         if(isSlide){
             playerAnimator.SetBool("isSlide", true);
+            
         }else{
             playerAnimator.SetBool("isSlide", false);
         }
     }
     
     public void PointerSlide(){
-        if(playerJump.isGrounded()){
+        if(playerJump.isGrounded() && slideCooldown >= initialSlideCooldown){
             isSlide = true;
+        }
+    }
+
+    private void slideCooldownHandler(){
+        if(slideCooldown <= initialSlideCooldown + .1f){
+            slideCooldown += Time.fixedDeltaTime;
         }
     }
 }

@@ -3,13 +3,13 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
 
-    public float movementSpeed {get; private set; } = 5f;
+    public float movementSpeed {get; private set;} = 5f;
     private float moveHorizontal;
     private float playerHealth;
 
     private bool isMoveL;
     private bool isMoveR;
-    private bool isMove;
+    public bool isMove {get; private set;}
 
     public bool isFacingRight {get; private set;}
 
@@ -18,6 +18,7 @@ public class PlayerMove : MonoBehaviour
     private Animator playerAnimator;
 
     private PlayerJump playerJump;
+    private PlayerSlide playerSlide;
 
 
     private void Awake() {
@@ -35,13 +36,16 @@ public class PlayerMove : MonoBehaviour
         playerRB = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
         playerAnimator = GetComponent<Animator>();
-
+        playerSlide = GetComponent<PlayerSlide>();
         playerJump = GetComponent<PlayerJump>();
     }
     
     private void Update(){
         playerAnimator.SetFloat("Speed", Mathf.Abs(moveHorizontal));
         move();
+        if(isMove){
+            playerSlide.isSlide = false;
+        }
     }
 
     private void FixedUpdate(){
@@ -51,14 +55,18 @@ public class PlayerMove : MonoBehaviour
 
     // Move
     public void move(){
-        if(!this.playerAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !this.playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("player_slide")){
+        if(!this.playerAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack")){
             if(isMoveL){
                 moveHorizontal = -movementSpeed;
+                playerAnimator.SetBool("isSlide", true);
+                playerSlide.slideTimer = 0;
                 isMove = true;
                 isFacingRight = false;
                 transform.rotation = Quaternion.Euler(transform.eulerAngles.x, 180f, transform.eulerAngles.z);
             }else if(isMoveR){
                 moveHorizontal = movementSpeed;
+                playerAnimator.SetBool("isSlide", true);
+                playerSlide.slideTimer = 0;
                 isMove = true;
                 isFacingRight = true;
                 transform.rotation = Quaternion.Euler(transform.eulerAngles.x, 0f, transform.eulerAngles.z);
