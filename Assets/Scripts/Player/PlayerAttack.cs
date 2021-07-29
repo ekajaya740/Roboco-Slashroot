@@ -51,7 +51,6 @@ public class PlayerAttack : MonoBehaviour
         if(!isAttack){
             attackDamageCalc();
         }
-        print(playerMeleeDetect);
     }
 
     private void attackHandler(){
@@ -103,18 +102,4 @@ public class PlayerAttack : MonoBehaviour
     public void PointerAttack(){
         isAttack = true;
     }
-
-    // Trigger Detect
-    // void OnTriggerEnter2D(Collider2D collider){
-    //     if(collider.gameObject.tag == "Enemy"){
-    //         isMelee = true;
-    //     }
-    // }
-
-    // void OnTriggerExit2D(Collider2D collider){
-    //     if(collider.gameObject.tag == "Enemy"){
-    //         isMelee = false;
-    //     }
-    // }
-
 }

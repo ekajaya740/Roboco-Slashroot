@@ -25,8 +25,8 @@ public class PlayerSlide : MonoBehaviour
     void Awake()
     {
         maxSlideTime = .5f;
-        slidePower = 200f;
-        initialSlideCooldown = 1f;
+        slidePower = 350f;
+        initialSlideCooldown = 2f;
         slideCooldown = initialSlideCooldown;
     }
     void Start()
