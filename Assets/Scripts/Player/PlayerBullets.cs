@@ -11,7 +11,7 @@ public class PlayerBullets : MonoBehaviour
     void Awake(){
         bulletRB = GetComponent<Rigidbody2D>();
         bulletCollider = GetComponent<PolygonCollider2D>();
-        bulletSpeed = 10f;
+        bulletSpeed = 30f;
     }
     void Start()
     {
@@ -30,13 +30,13 @@ public class PlayerBullets : MonoBehaviour
     }
 
     
-    void OnTriggerEnter2D(Collider2D collider){
-        if(collider.gameObject.tag == "Ground"){
+    void OnCollisionEnter2D(Collision2D collision){
+        if(collision.gameObject.tag == "Ground"){
             destroyBullet();
         }
 
-        if(collider.gameObject.tag == "Enemy"){
-            destroyBullet();
+        if(collision.gameObject.tag == "Enemy"){
+            // destroyBullet();
         }
     }
 

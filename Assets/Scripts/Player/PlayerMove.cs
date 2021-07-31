@@ -5,7 +5,6 @@ public class PlayerMove : MonoBehaviour
 
     public float movementSpeed {get; private set;} = 5f;
     private float moveHorizontal;
-    private float playerHealth;
 
     private bool isMoveL;
     private bool isMoveR;
@@ -27,7 +26,6 @@ public class PlayerMove : MonoBehaviour
         isMove = false;
         isFacingRight = true;
 
-        playerHealth = 1000f;
         
     }
 

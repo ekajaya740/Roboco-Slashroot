@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
 
-    private bool isAttack;
+    public bool isAttack { get; private set;}
     private bool isMelee;
     private char whichWeaponNotBuffed;
     private char weaponNow;
@@ -13,7 +13,7 @@ public class PlayerAttack : MonoBehaviour
     private float atkCooldownCount;
 
     private float playerBaseDamage = 25f;
-    private float playerDamage;
+    public float playerDamage { get; private set;}
     private Animator playerAnimator;
 
     private PlayerMove playerMove;
@@ -45,6 +45,7 @@ public class PlayerAttack : MonoBehaviour
     {
         attackCooldownHandler();
         attackHandler();
+        print(isAttack);
     }
 
     void FixedUpdate(){
