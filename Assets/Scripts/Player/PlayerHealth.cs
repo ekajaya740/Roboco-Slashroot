@@ -49,7 +49,7 @@ public class PlayerHealth : MonoBehaviour
             if(enemyAttack.isAttack){
                 playerHealth -= enemyAttack.enemyDamage;
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.07f);
         }
     }
 }

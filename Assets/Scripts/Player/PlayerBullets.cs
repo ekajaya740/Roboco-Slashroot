@@ -30,13 +30,19 @@ public class PlayerBullets : MonoBehaviour
     }
 
     
-    void OnCollisionEnter2D(Collision2D collision){
-        if(collision.gameObject.tag == "Ground"){
-            destroyBullet();
-        }
+    // void OnCollisionEnter2D(Collision2D collision){
+    //     if(collision.gameObject.tag == "Ground"){
+    //         destroyBullet();
+    //     }
 
-        if(collision.gameObject.tag == "Enemy"){
-            // destroyBullet();
+    //     if(collision.gameObject.tag == "Enemy"){
+    //         destroyBullet();
+    //     }
+    // }
+
+    void OnTriggerEnter2D(Collider2D collider){
+        if(collider.gameObject.tag == "Enemy"){
+            destroyBullet();
         }
     }
 

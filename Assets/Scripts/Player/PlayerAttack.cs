@@ -45,7 +45,6 @@ public class PlayerAttack : MonoBehaviour
     {
         attackCooldownHandler();
         attackHandler();
-        print(isAttack);
     }
 
     void FixedUpdate(){

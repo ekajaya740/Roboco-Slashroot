@@ -31,6 +31,8 @@ public class PlayerJump : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
         playerCollider = GetComponent<BoxCollider2D>();
         playerRB = GetComponent<Rigidbody2D>();
+
+        StartCoroutine(JumpCooldown());
     }
 
     void Update()
@@ -43,11 +45,7 @@ public class PlayerJump : MonoBehaviour
     }
     
     void FixedUpdate(){
-        if(isJump){
-            extraJump--;
-            playerRB.velocity = Vector2.up * jumpH;
-            isJump = false;
-        }
+        
     }
 
     private void jumpAnimHandler(){
@@ -72,6 +70,17 @@ public class PlayerJump : MonoBehaviour
     public void PointerJump(){
         if(extraJump >= 0){
             isJump = true;
+        }
+    }
+
+    private IEnumerator JumpCooldown(){
+        while(true){
+            if(isJump){
+                isJump = false;
+                extraJump--;
+                playerRB.velocity = Vector2.up * jumpH;
+            }
+            yield return new WaitForSeconds(0.833f);
         }
     }
 }

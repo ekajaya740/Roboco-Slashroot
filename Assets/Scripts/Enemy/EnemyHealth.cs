@@ -26,16 +26,16 @@ public class EnemyHealth : MonoBehaviour
     void Update()
     {
         healthBarManager.SetHealth(enemyHealth, maxEnemyHealth);
-        print(isAttacked);
         if(isAttacked){
             enemyHealth -= playerAttack.playerDamage;
             isAttacked = false;
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision){
-        if(collision.gameObject.CompareTag("Player Bullet")){
+    void OnTriggerEnter2D(Collider2D collider){
+        if(collider.gameObject.tag == "Player Attack"){
             isAttacked = true;
         }
     }
+
 }

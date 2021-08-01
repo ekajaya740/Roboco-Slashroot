@@ -13,7 +13,7 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField] private Rigidbody2D playerRB;
 
     void Awake(){
-        enemyDamage = 5;
+        enemyDamage = 60;
     }
 
     void Start()
@@ -35,10 +35,6 @@ public class EnemyAttack : MonoBehaviour
         if(isAttack){
             enemyMove.movementSpeed = 0;
             enemyAnimator.SetTrigger("Attack");
-            // if(enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("enemy_attack") && enemyAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.99f){
-                
-            //     isAttack = false;
-            // }
         }else{
             enemyAnimator.ResetTrigger("Attack");
         }

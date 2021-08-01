@@ -16,6 +16,12 @@ public class PlayerMeleeDetect : MonoBehaviour
         }
     }
 
+    void OnTriggerStay2D(Collider2D collider){
+        if(collider.gameObject.tag == "Enemy"){
+            isMelee = true;
+        }
+    }
+
     void OnTriggerExit2D(Collider2D collider){
         if(collider.gameObject.tag == "Enemy"){
             isMelee = false;
