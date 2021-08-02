@@ -15,7 +15,7 @@ public class PlayerBullets : MonoBehaviour
     }
     void Start()
     {
-        Invoke("destroyBullet", .5f);
+        Invoke("destroyBullet", .2f);
     }
 
 
@@ -29,16 +29,6 @@ public class PlayerBullets : MonoBehaviour
         Destroy(gameObject);
     }
 
-    
-    // void OnCollisionEnter2D(Collision2D collision){
-    //     if(collision.gameObject.tag == "Ground"){
-    //         destroyBullet();
-    //     }
-
-    //     if(collision.gameObject.tag == "Enemy"){
-    //         destroyBullet();
-    //     }
-    // }
 
     void OnTriggerEnter2D(Collider2D collider){
         if(collider.gameObject.tag == "Enemy"){

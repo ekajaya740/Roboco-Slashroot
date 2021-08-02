@@ -24,6 +24,7 @@ public class EnemyMove : MonoBehaviour
     [SerializeField] private DetectPlayerForward detectPlayerForward;
     [SerializeField] private Transform playerTransform;
     private EnemyAttack enemyAttack;
+    private EnemyHealth enemyHealth;
 
     void Awake(){
         isPatrol = true;
@@ -39,6 +40,7 @@ public class EnemyMove : MonoBehaviour
         enemyCollider = GetComponent<BoxCollider2D>();
         enemyAnimator = GetComponent<Animator>();
         enemyAttack = GetComponent<EnemyAttack>();
+        enemyHealth = GetComponent<EnemyHealth>();
     }
 
     void Update()
@@ -60,7 +62,7 @@ public class EnemyMove : MonoBehaviour
     }
 
     void FixedUpdate(){
-        if(isPatrol){
+        if(isPatrol && !enemyHealth.isDead){
             mustTurn = !Physics2D.OverlapCircle(groundCheckPos.position, .1f, platformLayer);
         }
 
@@ -90,7 +92,7 @@ public class EnemyMove : MonoBehaviour
     }
 
     private void Patrol(){
-        if(mustTurn || enemyCollider.IsTouchingLayers(platformLayer)){
+        if((mustTurn || enemyCollider.IsTouchingLayers(platformLayer))){
             Flip();
             followPlayer = false;
         }
@@ -99,10 +101,25 @@ public class EnemyMove : MonoBehaviour
     }
 
     public void Flip(){
-        isPatrol = false;
-        isFacingRight = !isFacingRight;
-        transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
-        movementSpeed *= -1;
-        isPatrol = true;
+        if(!enemyHealth.isDead){
+            isPatrol = false;
+            isFacingRight = !isFacingRight;
+            transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+            movementSpeed *= -1;
+            isPatrol = true;
+        }
+    }
+
+    private IEnumerator NoMoveDead(){
+        while(true){
+            if(enemyHealth.isDead){
+                isPatrol = false;
+                followPlayer = false;
+                enemyRB.velocity = Vector2.zero;
+                
+                yield return new WaitForSeconds(5f);
+            }
+            yield return null;
+        }
     }
 }

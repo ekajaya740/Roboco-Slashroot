@@ -18,6 +18,10 @@ public class PlayerMove : MonoBehaviour
 
     private PlayerJump playerJump;
     private PlayerSlide playerSlide;
+    [SerializeField] private EnemyHealth enemyHealth;
+    
+    [SerializeField] private BoxCollider2D enemyCollider;
+
 
 
     private void Awake() {
@@ -90,5 +94,13 @@ public class PlayerMove : MonoBehaviour
 
     public void PointerUpMoveR(){
         isMoveR = false;
+    }
+
+    void OnCollisionEnter2D(Collision2D collision){
+        if(collision.gameObject.tag == "Enemy" && !enemyHealth.isDead){
+            Physics2D.IgnoreCollision(playerCollider, enemyCollider);
+
+
+        }
     }
 }
