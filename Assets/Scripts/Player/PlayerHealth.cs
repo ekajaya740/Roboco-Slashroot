@@ -26,17 +26,17 @@ public class PlayerHealth : MonoBehaviour
         playerHealth = maxPlayerHealth;
         StartCoroutine(HealthRegen());
         StartCoroutine(PlayerAttacked());
-        StartCoroutine(DeadState());
+        // StartCoroutine(DeadState());
     }
 
     // Update is called once per frame
     void Update()
     {
         healthBarManager.SetHealth(playerHealth, maxPlayerHealth);
-        if(isDead){
-            StopCoroutine(PlayerAttacked());
-            StopCoroutine(HealthRegen());
-        }
+        // if(isDead){
+        //     StopCoroutine(PlayerAttacked());
+        //     StopCoroutine(HealthRegen());
+        // }
     }
 
     void FixedUpdate(){
@@ -67,6 +67,7 @@ public class PlayerHealth : MonoBehaviour
                 isDead = true;
                 playerAnimator.SetTrigger("Dead");
             }
+            yield return null;
         }
     }
 }
