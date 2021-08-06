@@ -6,6 +6,7 @@ public class MyGameManager : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject respawnPoint;
+    [SerializeField] private PlayerMove playerMove;
     // private CameraFollow cameraFollow;
     public bool isRespawn;
     
@@ -26,6 +27,7 @@ public class MyGameManager : MonoBehaviour
         if(player.transform.position.y < -10f){
             player.transform.position = respawnPoint.transform.position; 
             isRespawn = true;
+            playerMove.movementSpeed = playerMove.initialMovementSpeed;
         }
     }
 }

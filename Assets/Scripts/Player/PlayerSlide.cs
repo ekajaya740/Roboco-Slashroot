@@ -20,14 +20,15 @@ public class PlayerSlide : MonoBehaviour
     
     private PlayerMove playerMove;
     private PlayerJump playerJump;
+    private PlayerAttack playerAttack;
 
 
     void Awake()
     {
         maxSlideTime = .5f;
         slidePower = 350f;
-        initialSlideCooldown = 2f;
-        slideCooldown = initialSlideCooldown;
+        initialSlideCooldown = 1f;
+        slideCooldown = 0f;
     }
     void Start()
     {
@@ -35,6 +36,7 @@ public class PlayerSlide : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
         playerMove = GetComponent<PlayerMove>();
         playerJump = GetComponent<PlayerJump>();
+        playerAttack = GetComponent<PlayerAttack>();
     }
 
     void Update()
@@ -46,7 +48,7 @@ public class PlayerSlide : MonoBehaviour
     void FixedUpdate()
     {
         slideCooldownHandler();
-        if(isSlide && !playerMove.isMove && slideCooldown >= initialSlideCooldown){
+        if(isSlide && !playerMove.isMove && slideCooldown <= 0f){
             slideTimer += Time.deltaTime;
             Vector3 slideDirection = Vector3.zero;
             if(isFacingRight){
@@ -55,10 +57,11 @@ public class PlayerSlide : MonoBehaviour
             }else if(!isFacingRight){
                 playerRB.AddForce(Vector2.left * slidePower);
             }
+            Physics2D.IgnoreLayerCollision(3,8, true);
 
             transform.Translate(slideDirection);
             if(slideTimer > maxSlideTime){
-                slideCooldown = 0;
+                slideCooldown = initialSlideCooldown;
                 isSlide = false;
                 slideTimer = 0;
             }
@@ -68,21 +71,23 @@ public class PlayerSlide : MonoBehaviour
     private void slideAnimHandler(){
         if(isSlide){
             playerAnimator.SetBool("isSlide", true);
+            playerAttack.atkCooldownCount = 0;
             
         }else{
             playerAnimator.SetBool("isSlide", false);
+            Physics2D.IgnoreLayerCollision(3,8, false);
         }
     }
     
     public void PointerSlide(){
-        if(playerJump.isGrounded() && slideCooldown >= initialSlideCooldown){
+        if(playerJump.isGrounded() && slideCooldown <= 0f){
             isSlide = true;
         }
     }
 
     private void slideCooldownHandler(){
-        if(slideCooldown <= initialSlideCooldown + .1f){
-            slideCooldown += Time.fixedDeltaTime;
+        if(slideCooldown >= 0f){
+            slideCooldown -= Time.fixedDeltaTime;
         }
     }
 }

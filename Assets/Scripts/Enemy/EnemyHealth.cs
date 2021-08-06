@@ -20,9 +20,9 @@ public class EnemyHealth : MonoBehaviour
 
 
     void Awake(){
-        maxEnemyHealth = 2000;
+        maxEnemyHealth = 3500;
         isDead = false;
-        disposalCooldown = 0;
+        disposalCooldown = 5f;
     }
     
     void Start()
@@ -53,8 +53,9 @@ public class EnemyHealth : MonoBehaviour
         while(true){
             if(enemyHealth <= 0){
                 isDead = true;
+                Physics2D.IgnoreLayerCollision(8,3, true);
                 enemyAnimator.SetTrigger("Dead");
-                yield return new WaitForSeconds(5f); 
+                yield return new WaitForSeconds(disposalCooldown); 
                 Destroy(gameObject);
             }
             yield return null;

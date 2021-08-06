@@ -9,8 +9,8 @@ public class PlayerAttack : MonoBehaviour
     private bool isMelee;
     private char whichWeaponNotBuffed;
     private char weaponNow;
-    private float atkCooldown;
-    private float atkCooldownCount;
+    public float atkCooldown { get; private set;}
+    public float atkCooldownCount;
 
     private float playerBaseDamage = 25f;
     public float playerDamage { get; private set;}
@@ -23,13 +23,17 @@ public class PlayerAttack : MonoBehaviour
 
     [SerializeField] private Object playerBulletRef;
     [SerializeField] private GameObject playerBulletPos;
+    
+    [SerializeField] private ParticleSystem weaponBuffParticle;
+    
 
     void Awake(){
         isAttack = false;
         isMelee = false;
-        atkCooldown = 1.5f;
+        atkCooldown = 2f;
         whichWeaponNotBuffed = 'M';
         atkCooldownCount = 0f;
+        
     }
 
     void Start()
@@ -39,10 +43,13 @@ public class PlayerAttack : MonoBehaviour
         playerSlide = GetComponent<PlayerSlide>();
         playerAnimator = GetComponent<Animator>();
         playerMeleeDetect = GetComponent<PlayerMeleeDetect>();
+        
     }
 
     void Update()
     {
+        var weaponBuff = weaponBuffParticle.main;
+        weaponBuff.startColor = WeaponParticle();
         attackCooldownHandler();
         attackHandler();
     }
@@ -55,7 +62,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void attackHandler(){
         isMelee = playerMeleeDetect.isMelee;
-        if(isAttack && atkCooldownCount > atkCooldown && !playerSlide.isSlide && !playerMove.isMove){
+        if(isAttack && atkCooldownCount <= 0f && !playerSlide.isSlide && !playerMove.isMove){
             playerAnimator.SetTrigger("attack");
 
             if(isMelee && playerJump.isGrounded()){
@@ -85,8 +92,8 @@ public class PlayerAttack : MonoBehaviour
     }
 
     private void attackCooldownHandler(){
-        if(atkCooldownCount <= atkCooldown + .1f){
-            atkCooldownCount += Time.fixedDeltaTime;
+        if(atkCooldownCount >= 0f){
+            atkCooldownCount -= Time.fixedDeltaTime;
         }
     }
     
@@ -101,5 +108,17 @@ public class PlayerAttack : MonoBehaviour
 
     public void PointerAttack(){
         isAttack = true;
+    }
+
+    private Color WeaponParticle(){
+        Color meleeBuff = new Color(255,0,0,255);
+        Color rangedBuff = new Color(0,0,255,255);
+
+        if(whichWeaponNotBuffed == 'M'){
+            return rangedBuff;
+        }else if(whichWeaponNotBuffed == 'R'){
+            return meleeBuff;
+        }
+        return new Color(0,0,0,0);
     }
 }

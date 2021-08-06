@@ -13,7 +13,7 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField] private Rigidbody2D playerRB;
 
     void Awake(){
-        enemyDamage = 60;
+        enemyDamage = 70;
     }
 
     void Start()

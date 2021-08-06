@@ -3,7 +3,8 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
 
-    public float movementSpeed {get; private set;} = 5f;
+    public float movementSpeed;
+    public float initialMovementSpeed {get; private set;}
     private float moveHorizontal;
 
     private bool isMoveL;
@@ -29,8 +30,8 @@ public class PlayerMove : MonoBehaviour
         isMoveR = false;
         isMove = false;
         isFacingRight = true;
+        initialMovementSpeed = 5f;
 
-        
     }
 
     private void Start()
@@ -40,6 +41,7 @@ public class PlayerMove : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
         playerSlide = GetComponent<PlayerSlide>();
         playerJump = GetComponent<PlayerJump>();
+        movementSpeed = initialMovementSpeed;
     }
     
     private void Update(){

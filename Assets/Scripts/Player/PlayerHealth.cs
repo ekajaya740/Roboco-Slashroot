@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour
     private float maxPlayerHealth;
     [SerializeField] private HealthBarManager healthBarManager;
     [SerializeField] private EnemyAttack enemyAttack;
+    private PlayerMove playerMove;
     private Rigidbody2D playerRB;
     
     private Animator playerAnimator;
@@ -23,20 +24,23 @@ public class PlayerHealth : MonoBehaviour
     {
         playerRB = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
+        playerMove = GetComponent<PlayerMove>();
         playerHealth = maxPlayerHealth;
         StartCoroutine(HealthRegen());
         StartCoroutine(PlayerAttacked());
-        // StartCoroutine(DeadState());
+        StartCoroutine(DeadState());
     }
 
     // Update is called once per frame
     void Update()
     {
         healthBarManager.SetHealth(playerHealth, maxPlayerHealth);
-        // if(isDead){
-        //     StopCoroutine(PlayerAttacked());
-        //     StopCoroutine(HealthRegen());
-        // }
+
+        if(isDead){
+            StopCoroutine(PlayerAttacked());
+            StopCoroutine(HealthRegen());
+            playerMove.movementSpeed = 0f;
+        }
     }
 
     void FixedUpdate(){
@@ -57,7 +61,7 @@ public class PlayerHealth : MonoBehaviour
             if(enemyAttack.isAttack){
                 playerHealth -= enemyAttack.enemyDamage;
             }
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.7f);
         }
     }
 
