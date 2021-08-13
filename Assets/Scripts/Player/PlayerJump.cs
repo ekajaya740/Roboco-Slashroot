@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerJump : MonoBehaviour
 {
-    private bool isJump;
+    public bool isJump {get; private set;}
     
     private float jumpH;
 

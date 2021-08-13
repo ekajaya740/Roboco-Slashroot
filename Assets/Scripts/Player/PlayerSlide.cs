@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerSlide : MonoBehaviour
 {
-    public bool isSlide{get; set;}
+    public bool isSlide;
     private bool isFacingRight;
 
     private float slidePower;
