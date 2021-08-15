@@ -12,7 +12,7 @@ public class PlayerAttack : MonoBehaviour
     public float atkCooldown { get; private set;}
     public float atkCooldownCount;
 
-    private float playerBaseDamage = 25f;
+    private float playerBaseDamage = 100f;
     public float playerDamage { get; private set;}
     private Animator playerAnimator;
 
@@ -31,7 +31,7 @@ public class PlayerAttack : MonoBehaviour
         isAttack = false;
         isMelee = false;
         atkCooldown = 2f;
-        whichWeaponNotBuffed = 'M';
+        // whichWeaponNotBuffed = '';
         atkCooldownCount = 0f;
         
     }

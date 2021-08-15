@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-
     [HideInInspector] public float playerHealth;
     private float maxPlayerHealth;
     [SerializeField] private HealthBarManager healthBarManager;
@@ -14,6 +13,10 @@ public class PlayerHealth : MonoBehaviour
     
     private Animator playerAnimator;
     private bool isDead;
+    private GameObject gameManager;
+    private MyGameManager myGameManager;
+    
+    
 
     void Awake(){
         maxPlayerHealth = 5000f;
@@ -24,10 +27,11 @@ public class PlayerHealth : MonoBehaviour
     {
         playerRB = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
-        playerMove = GetComponent<PlayerMove>();
         playerHealth = maxPlayerHealth;
+        gameManager = GameObject.Find("GameManager");
+        myGameManager = gameManager.GetComponent<MyGameManager>();
+        
         StartCoroutine(HealthRegen());
-        StartCoroutine(PlayerAttacked());
         StartCoroutine(DeadState());
     }
 
@@ -35,16 +39,9 @@ public class PlayerHealth : MonoBehaviour
     void Update()
     {
         healthBarManager.SetHealth(playerHealth, maxPlayerHealth);
-
-        if(isDead){
-            StopCoroutine(PlayerAttacked());
-            StopCoroutine(HealthRegen());
-            playerMove.movementSpeed = 0f;
-        }
     }
 
     void FixedUpdate(){
-
     }
 
     private IEnumerator HealthRegen(){
@@ -53,25 +50,26 @@ public class PlayerHealth : MonoBehaviour
                 playerHealth += 0.1f;
             }
             yield return new WaitForSeconds(1);
+
         }
     }
 
-    private IEnumerator PlayerAttacked(){
-        while(true){
-            if(enemyAttack.isAttack){
-                playerHealth -= enemyAttack.enemyDamage;
-            }
-            yield return new WaitForSeconds(0.7f);
-        }
-    }
+    
 
     private IEnumerator DeadState(){
         while(true){
             if(playerHealth <= 0){
                 isDead = true;
-                playerAnimator.SetTrigger("Dead");
+                playerAnimator.SetTrigger("Dead");                
+                yield return new WaitForSeconds(5f);
+                myGameManager.RespawnToRP();
+                isDead = false;
+                playerAnimator.ResetTrigger("Dead");
+                playerHealth = maxPlayerHealth;
             }
             yield return null;
         }
     }
+
+
 }

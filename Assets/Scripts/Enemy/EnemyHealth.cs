@@ -14,6 +14,7 @@ public class EnemyHealth : MonoBehaviour
 
     private bool isAttacked;
     public bool isDead {get; private set;}
+    private GameObject playerGameObject;
     private float disposalCooldown;
 
     
@@ -30,6 +31,8 @@ public class EnemyHealth : MonoBehaviour
         enemyAnimator = GetComponent<Animator>();
         enemyMove = GetComponent<EnemyMove>();
         enemyHealth = maxEnemyHealth;
+        playerGameObject = GameObject.Find("Player");
+        playerAttack = playerGameObject.GetComponent<PlayerAttack>();
         StartCoroutine(DeadHandle());
     }
 

@@ -22,6 +22,7 @@ public class EnemyMove : MonoBehaviour
 
     [SerializeField] private DetectPlayerBehind detectPlayerBehind;
     [SerializeField] private DetectPlayerForward detectPlayerForward;
+    private GameObject playerGameObject;
     [SerializeField] private Transform playerTransform;
     private EnemyAttack enemyAttack;
     private EnemyHealth enemyHealth;
@@ -41,10 +42,13 @@ public class EnemyMove : MonoBehaviour
         enemyAnimator = GetComponent<Animator>();
         enemyAttack = GetComponent<EnemyAttack>();
         enemyHealth = GetComponent<EnemyHealth>();
+        playerGameObject = GameObject.Find("Player");
     }
 
     void Update()
     {
+        DespawnEnemy();
+        playerTransform = playerGameObject.transform;
         if(transform.localScale.x < 0){
             buffedMovementSpeed = -200;
             normalMovementSpeed = -100;
@@ -53,7 +57,7 @@ public class EnemyMove : MonoBehaviour
             normalMovementSpeed = 100;
         }
 
-        if(!enemyAttack.isAttack){
+        if(!EnemyAttack.isAttack){
             enemyAnimator.SetFloat("Speed", Mathf.Abs(enemyRB.velocity.x));
             if(isPatrol){
                 Patrol();
@@ -62,6 +66,7 @@ public class EnemyMove : MonoBehaviour
     }
 
     void FixedUpdate(){
+        Physics2D.IgnoreLayerCollision(8,8);
         if(isPatrol && !enemyHealth.isDead){
             mustTurn = !Physics2D.OverlapCircle(groundCheckPos.position, .1f, platformLayer);
         }
@@ -120,6 +125,12 @@ public class EnemyMove : MonoBehaviour
                 yield return new WaitForSeconds(5f);
             }
             yield return null;
+        }
+    }
+
+    private void DespawnEnemy(){
+        if(gameObject.transform.position.y < -10f){
+            Destroy(gameObject);
         }
     }
 }

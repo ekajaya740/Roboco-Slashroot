@@ -9,6 +9,8 @@ public class CameraFollow : MonoBehaviour
     private float playerSpeed;
 
     void Start(){
+        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(player);
         playerSpeed = playerMove.initialMovementSpeed;
     }
 

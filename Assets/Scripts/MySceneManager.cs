@@ -8,11 +8,9 @@ public class MySceneManager : MonoBehaviour
     private bool isCanMoveStage;
     [SerializeField] private PlayerGetKey playerGetKey;
     private Scene thisScene;
-    private string sceneNamePattern;
 
     void Awake(){
         isCanMoveStage = false;
-        sceneNamePattern = "Stage_";
     }
 
     void Start()
@@ -23,21 +21,32 @@ public class MySceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isCanMoveStage){
-            if(thisScene.name == "Stage_1"){
-                SceneManager.LoadScene(sceneNamePattern + "2");
-            }
-        }
+        MoveStage();
     }
 
-    private void MoveStage(){
 
+    private void MoveStage(){
+        
+
+        // if(isCanMoveStage && CheckAllEnemyDead()){
+            if(thisScene.buildIndex == 0){
+                SceneManager.LoadScene(1);
+            }
+        // }
+    }
+
+    private bool CheckAllEnemyDead(){
+        if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0){
+            return true;
+        }
+        return false;
     }
 
     void OnTriggerEnter2D(Collider2D collider){
         if(collider.gameObject.tag == "Player"){
             if(playerGetKey.isGetKey){
                 isCanMoveStage = true;
+                
             }
         }
     }
