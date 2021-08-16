@@ -22,6 +22,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private EnemyHealth enemyHealth;
     
     [SerializeField] private BoxCollider2D enemyCollider;
+    public bool isFalling;
 
 
 
@@ -29,6 +30,7 @@ public class PlayerMove : MonoBehaviour
         isMoveL = false;
         isMoveR = false;
         isMove = false;
+        isFalling = false;
         isFacingRight = true;
         initialMovementSpeed = 5f;
 
@@ -103,6 +105,12 @@ public class PlayerMove : MonoBehaviour
             Physics2D.IgnoreCollision(playerCollider, enemyCollider);
 
 
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collider){
+        if(collider.gameObject.tag == "Fall"){
+            isFalling = true;
         }
     }
 }

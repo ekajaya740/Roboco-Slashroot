@@ -7,6 +7,7 @@ public class MySceneManager : MonoBehaviour
 {
     private bool isCanMoveStage;
     [SerializeField] private PlayerGetKey playerGetKey;
+    private GameObject myGameManager;
     private Scene thisScene;
 
     void Awake(){
@@ -15,6 +16,7 @@ public class MySceneManager : MonoBehaviour
 
     void Start()
     {
+        myGameManager = GameObject.Find("GameManager");
         thisScene = SceneManager.GetActiveScene();
     }
 
@@ -28,11 +30,12 @@ public class MySceneManager : MonoBehaviour
     private void MoveStage(){
         
 
-        // if(isCanMoveStage && CheckAllEnemyDead()){
+        if(isCanMoveStage && CheckAllEnemyDead()){
             if(thisScene.buildIndex == 0){
                 SceneManager.LoadScene(1);
             }
-        // }
+            myGameManager.GetComponent<MyGameManager>().isLevelLoaded = true;
+        }
     }
 
     private bool CheckAllEnemyDead(){

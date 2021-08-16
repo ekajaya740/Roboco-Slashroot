@@ -15,10 +15,13 @@ public class MyGameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     private GameObject UICanvas;
     private GameObject eventSystem;
+
+    public bool isLevelLoaded;
     
     
     void Awake(){
         playerCredits = 3;
+        isLevelLoaded = true;
     }
     
     void Start()
@@ -35,26 +38,30 @@ public class MyGameManager : MonoBehaviour
         heart2 = GameObject.Find("Heart2");
         heart3 = GameObject.Find("Heart3");
 
-        // RespawnToRP();
     }
 
     // Update is called once per frame
     void Update()
     {
-        RespawnIfFall();
+        RespawnToRP();
 
     }
 
-    private void RespawnIfFall(){
-        if(playerGameObject.transform.position.y < -10f){
-            RespawnToRP();
-        }
-    }
 
     public void RespawnToRP(){
-        playerGameObject.transform.position = respawnPoint.transform.position; 
-        playerCredits--;
-        HeartController();
+        if(isLevelLoaded){
+            respawnPoint = GameObject.Find("RespawnPoint");
+            playerGameObject.transform.position = respawnPoint.transform.position;
+            isLevelLoaded = false;
+        }
+
+        if(playerGameObject.GetComponent<PlayerHealth>().isDead || playerGameObject.GetComponent<PlayerMove>().isFalling){
+            playerGameObject.transform.position = respawnPoint.transform.position;
+            playerCredits--;
+            HeartController();
+            playerGameObject.GetComponent<PlayerHealth>().isDead = false;
+            playerGameObject.GetComponent<PlayerMove>().isFalling = false;
+        }
     }
 
     public void HeartController(){
@@ -72,5 +79,5 @@ public class MyGameManager : MonoBehaviour
                 break;
         }
     }
-    
+
 }

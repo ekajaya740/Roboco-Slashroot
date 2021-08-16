@@ -9,6 +9,7 @@ TagManager:
   - Undefined
   - Player Attack
   - Move Stage
+  - Fall
   layers:
   - Default
   - TransparentFX

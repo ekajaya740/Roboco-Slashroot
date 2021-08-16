@@ -12,7 +12,7 @@ public class PlayerHealth : MonoBehaviour
     private Rigidbody2D playerRB;
     
     private Animator playerAnimator;
-    private bool isDead;
+    public bool isDead;
     private GameObject gameManager;
     private MyGameManager myGameManager;
     
