@@ -21,7 +21,7 @@ public class EnemyHealth : MonoBehaviour
 
 
     void Awake(){
-        maxEnemyHealth = 3500;
+        maxEnemyHealth = 4000;
         isDead = false;
         disposalCooldown = 5f;
     }
@@ -39,6 +39,10 @@ public class EnemyHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(playerAttack == null){
+            playerAttack = playerGameObject.GetComponent<PlayerAttack>();
+        }
+
         healthBarManager.SetHealth(enemyHealth, maxEnemyHealth);
         if(isAttacked){
             enemyHealth -= playerAttack.playerDamage;

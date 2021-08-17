@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RandomBoxTrigger : MonoBehaviour
 {
-    public bool isTriggered {get; private set;}
+    public bool isTriggered;
     
     void Awake(){
         isTriggered = false;

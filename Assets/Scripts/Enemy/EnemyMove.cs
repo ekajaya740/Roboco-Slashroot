@@ -47,6 +47,9 @@ public class EnemyMove : MonoBehaviour
 
     void Update()
     {
+        if(playerTransform == null){
+            playerTransform = playerGameObject.GetComponent<Transform>();
+        }
         DespawnEnemy();
         playerTransform = playerGameObject.transform;
         if(transform.localScale.x < 0){

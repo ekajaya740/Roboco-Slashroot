@@ -15,8 +15,13 @@ public class EnemyAttack : MonoBehaviour
     private PlayerHealth playerHealthClass;
     [SerializeField] private Rigidbody2D playerRB;
 
+    private float initialAttackCooldown;
+    private float attackCooldown;
+
     void Awake(){
-        enemyDamage = 250;
+        enemyDamage = 190;
+        initialAttackCooldown = 0.6f;
+        attackCooldown = 0;
     }
 
     void Start()
@@ -27,14 +32,25 @@ public class EnemyAttack : MonoBehaviour
         playerGameObject = GameObject.Find("Player");
         playerRB = playerGameObject.GetComponent<Rigidbody2D>();
         playerHealthClass = playerGameObject.GetComponent<PlayerHealth>();
-        StartCoroutine(PlayerAttacked());
+        // StartCoroutine(PlayerAttacked());
     }
 
     void Update(){
+        if(playerRB == null){
+            playerRB = playerGameObject.GetComponent<Rigidbody2D>();
+        }
         Attack();
+        
+        if(attackCooldown < initialAttackCooldown + 0.1f){
+            attackCooldown += Time.fixedDeltaTime;
+        }
+        
+        if(EnemyAttack.isAttack && attackCooldown >= initialAttackCooldown){
+            playerHealthClass.playerHealth -= enemyDamage;
+            attackCooldown = 0;
+        }
     }
     void FixedUpdate(){
-
     }
 
     public void Attack(){
@@ -46,17 +62,5 @@ public class EnemyAttack : MonoBehaviour
             enemyAnimator.ResetTrigger("Attack");
         }
     }
-
-    private IEnumerator PlayerAttacked(){
-        while(true){
-
-            if(EnemyAttack.isAttack){
-                playerHealthClass.playerHealth -= enemyDamage;
-            }
-
-            yield return new WaitForSeconds(0.7f);
-        }
-    }
-
 
 }

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class MySceneManager : MonoBehaviour
 {
     private bool isCanMoveStage;
-    [SerializeField] private PlayerGetKey playerGetKey;
+    [SerializeField] private RandomBoxTrigger randomBoxTrigger;
     private GameObject myGameManager;
     private Scene thisScene;
 
@@ -32,9 +32,10 @@ public class MySceneManager : MonoBehaviour
 
         if(isCanMoveStage && CheckAllEnemyDead()){
             if(thisScene.buildIndex == 0){
+                myGameManager.GetComponent<MyGameManager>().isLevelLoaded = true;
                 SceneManager.LoadScene(1);
+                randomBoxTrigger.isTriggered = false;
             }
-            myGameManager.GetComponent<MyGameManager>().isLevelLoaded = true;
         }
     }
 
@@ -47,7 +48,7 @@ public class MySceneManager : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider){
         if(collider.gameObject.tag == "Player"){
-            if(playerGetKey.isGetKey){
+            if(randomBoxTrigger.isTriggered){
                 isCanMoveStage = true;
                 
             }

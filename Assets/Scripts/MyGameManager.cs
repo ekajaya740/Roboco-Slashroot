@@ -7,7 +7,7 @@ public class MyGameManager : MonoBehaviour
     public int playerCredits;
 
     private GameObject playerGameObject;
-    private GameObject respawnPoint;
+    public GameObject respawnPoint;
 
     private GameObject heart1;
     private GameObject heart2;
@@ -37,30 +37,36 @@ public class MyGameManager : MonoBehaviour
         heart1 = GameObject.Find("Heart1");
         heart2 = GameObject.Find("Heart2");
         heart3 = GameObject.Find("Heart3");
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        RespawnToRP();
+        RespawnIfFall();
+        LevelLoadedRespawn();
+        HeartController();
 
     }
 
 
     public void RespawnToRP(){
+        playerGameObject.transform.position = respawnPoint.transform.position;
+        
+    }
+
+    private void RespawnIfFall(){
+        if(playerGameObject.GetComponent<PlayerMove>().isFalling){
+            RespawnToRP();
+            playerCredits--;
+            playerGameObject.GetComponent<PlayerMove>().isFalling = false;
+        }
+    }
+
+    private void LevelLoadedRespawn(){
         if(isLevelLoaded){
             respawnPoint = GameObject.Find("RespawnPoint");
-            playerGameObject.transform.position = respawnPoint.transform.position;
+            RespawnToRP();
             isLevelLoaded = false;
-        }
-
-        if(playerGameObject.GetComponent<PlayerHealth>().isDead || playerGameObject.GetComponent<PlayerMove>().isFalling){
-            playerGameObject.transform.position = respawnPoint.transform.position;
-            playerCredits--;
-            HeartController();
-            playerGameObject.GetComponent<PlayerHealth>().isDead = false;
-            playerGameObject.GetComponent<PlayerMove>().isFalling = false;
         }
     }
 

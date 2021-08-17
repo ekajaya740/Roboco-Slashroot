@@ -12,7 +12,7 @@ public class PlayerAttack : MonoBehaviour
     public float atkCooldown { get; private set;}
     public float atkCooldownCount;
 
-    private float playerBaseDamage = 100f;
+    private float playerBaseDamage;
     public float playerDamage { get; private set;}
     private Animator playerAnimator;
 
@@ -31,7 +31,8 @@ public class PlayerAttack : MonoBehaviour
         isAttack = false;
         isMelee = false;
         atkCooldown = 2f;
-        // whichWeaponNotBuffed = '';
+        playerBaseDamage = 20f;
+        // whichWeaponNotBuffed = 'R';
         atkCooldownCount = 0f;
         
     }
@@ -43,11 +44,11 @@ public class PlayerAttack : MonoBehaviour
         playerSlide = GetComponent<PlayerSlide>();
         playerAnimator = GetComponent<Animator>();
         playerMeleeDetect = GetComponent<PlayerMeleeDetect>();
-        
     }
 
     void Update()
     {
+        print(playerDamage);
         var weaponBuff = weaponBuffParticle.main;
         weaponBuff.startColor = WeaponParticle();
         attackCooldownHandler();
@@ -55,9 +56,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
     void FixedUpdate(){
-        if(!isAttack){
-            attackDamageCalc();
-        }
+
     }
 
     private void attackHandler(){
@@ -85,7 +84,7 @@ public class PlayerAttack : MonoBehaviour
                 bulletObj.transform.position = new Vector3(playerBulletPos.transform.position.x, playerBulletPos.transform.position.y, playerBulletPos.transform.position.z);
             }
 
-            
+            attackDamageCalc();
             isAttack = false;
             atkCooldownCount = 0;
         }
@@ -99,10 +98,10 @@ public class PlayerAttack : MonoBehaviour
     
     private void attackDamageCalc(){
         if(whichWeaponNotBuffed != weaponNow){
-            this.playerDamage = playerBaseDamage * 10;
+            playerDamage = playerBaseDamage * 10;
             whichWeaponNotBuffed = weaponNow;
         }else if (whichWeaponNotBuffed == weaponNow){
-            this.playerDamage = playerBaseDamage;
+            playerDamage = playerBaseDamage;
         }
     }
 

@@ -5,10 +5,18 @@ using UnityEngine;
 public class EnemyInstantiator : MonoBehaviour
 {
     [SerializeField] private Object enemyObject;
+    
+    
+    void Awake(){
+        // isEnemySpawn = true;
+    }
     void Start()
     {
-        var instantiateEnemy = (GameObject) Instantiate(enemyObject);
-        instantiateEnemy.name = "Enemy";
+        Instantiate(enemyObject);
+    }
+
+    void Update(){
+        
     }
 
 }

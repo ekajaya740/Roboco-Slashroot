@@ -19,7 +19,7 @@ public class PlayerHealth : MonoBehaviour
     
 
     void Awake(){
-        maxPlayerHealth = 5000f;
+        maxPlayerHealth = 3400f;
         isDead = false;
     }    
 
@@ -47,7 +47,7 @@ public class PlayerHealth : MonoBehaviour
     private IEnumerator HealthRegen(){
         while(true){
             if(playerHealth < maxPlayerHealth){
-                playerHealth += 0.1f;
+                playerHealth += 1f;
             }
             yield return new WaitForSeconds(1);
 
@@ -59,12 +59,14 @@ public class PlayerHealth : MonoBehaviour
     private IEnumerator DeadState(){
         while(true){
             if(playerHealth <= 0){
+
                 isDead = true;
                 playerAnimator.SetTrigger("Dead");                
-                yield return new WaitForSeconds(5f);
-                myGameManager.RespawnToRP();
-                isDead = false;
+                yield return new WaitForSeconds(0.9f);
+                myGameManager.playerCredits--;
                 playerAnimator.ResetTrigger("Dead");
+                isDead = false;
+                myGameManager.RespawnToRP();
                 playerHealth = maxPlayerHealth;
             }
             yield return null;
