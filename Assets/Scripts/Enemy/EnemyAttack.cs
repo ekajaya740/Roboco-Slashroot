@@ -19,8 +19,8 @@ public class EnemyAttack : MonoBehaviour
     private float attackCooldown;
 
     void Awake(){
-        enemyDamage = 190;
-        initialAttackCooldown = 0.6f;
+        enemyDamage = 300;
+        initialAttackCooldown = 0.7f;
         attackCooldown = 0;
     }
 

@@ -28,13 +28,21 @@ public class MySceneManager : MonoBehaviour
 
 
     private void MoveStage(){
-        
-
         if(isCanMoveStage && CheckAllEnemyDead()){
-            if(thisScene.buildIndex == 0){
-                myGameManager.GetComponent<MyGameManager>().isLevelLoaded = true;
-                SceneManager.LoadScene(1);
-                randomBoxTrigger.isTriggered = false;
+            switch(thisScene.buildIndex){
+                case 0:
+                    myGameManager.GetComponent<MyGameManager>().isLevelLoaded = true;
+                    SceneManager.LoadScene(1);
+                    randomBoxTrigger.isTriggered = false;
+                    break;
+                case 1:
+                    myGameManager.GetComponent<MyGameManager>().isLevelLoaded = true;
+                    SceneManager.LoadScene(2);
+                    randomBoxTrigger.isTriggered = false;
+                    break;
+                case 2:
+                    Application.Quit();
+                    break;
             }
         }
     }

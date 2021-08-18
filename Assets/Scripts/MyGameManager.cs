@@ -51,7 +51,6 @@ public class MyGameManager : MonoBehaviour
 
     public void RespawnToRP(){
         playerGameObject.transform.position = respawnPoint.transform.position;
-        
     }
 
     private void RespawnIfFall(){

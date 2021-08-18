@@ -30,9 +30,8 @@ public class PlayerAttack : MonoBehaviour
     void Awake(){
         isAttack = false;
         isMelee = false;
-        atkCooldown = 2f;
-        playerBaseDamage = 20f;
-        // whichWeaponNotBuffed = 'R';
+        atkCooldown = 3.5f;
+        playerBaseDamage = 5f;
         atkCooldownCount = 0f;
         
     }
@@ -53,10 +52,6 @@ public class PlayerAttack : MonoBehaviour
         weaponBuff.startColor = WeaponParticle();
         attackCooldownHandler();
         attackHandler();
-    }
-
-    void FixedUpdate(){
-
     }
 
     private void attackHandler(){
@@ -98,7 +93,7 @@ public class PlayerAttack : MonoBehaviour
     
     private void attackDamageCalc(){
         if(whichWeaponNotBuffed != weaponNow){
-            playerDamage = playerBaseDamage * 10;
+            playerDamage = playerBaseDamage * 100;
             whichWeaponNotBuffed = weaponNow;
         }else if (whichWeaponNotBuffed == weaponNow){
             playerDamage = playerBaseDamage;
