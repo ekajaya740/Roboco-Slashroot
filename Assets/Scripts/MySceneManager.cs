@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MySceneManager : MonoBehaviour
 {
-    private bool isCanMoveStage;
+    public bool isCanMoveStage { get; private set;}
     [SerializeField] private RandomBoxTrigger randomBoxTrigger;
     private GameObject myGameManager;
     private Scene thisScene;
@@ -23,21 +23,27 @@ public class MySceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(isCanMoveStage);
+        if(randomBoxTrigger == null){
+            randomBoxTrigger = GameObject.Find("RandomBoxTrigger").GetComponent<RandomBoxTrigger>();
+        }
         MoveStage();
     }
 
 
     private void MoveStage(){
-        if(isCanMoveStage && CheckAllEnemyDead()){
+        if(randomBoxTrigger.isTriggered && CheckAllEnemyDead() && isCanMoveStage){
             switch(thisScene.buildIndex){
                 case 0:
                     myGameManager.GetComponent<MyGameManager>().isLevelLoaded = true;
                     SceneManager.LoadScene(1);
+                    isCanMoveStage = false;
                     randomBoxTrigger.isTriggered = false;
                     break;
                 case 1:
                     myGameManager.GetComponent<MyGameManager>().isLevelLoaded = true;
                     SceneManager.LoadScene(2);
+                    isCanMoveStage = false;
                     randomBoxTrigger.isTriggered = false;
                     break;
                 case 2:
@@ -47,7 +53,7 @@ public class MySceneManager : MonoBehaviour
         }
     }
 
-    private bool CheckAllEnemyDead(){
+    public bool CheckAllEnemyDead(){
         if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0){
             return true;
         }
@@ -56,10 +62,13 @@ public class MySceneManager : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider){
         if(collider.gameObject.tag == "Player"){
-            if(randomBoxTrigger.isTriggered){
-                isCanMoveStage = true;
-                
-            }
+            isCanMoveStage = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collider){
+        if(collider.gameObject.tag == "Player"){
+            isCanMoveStage = false;
         }
     }
 }

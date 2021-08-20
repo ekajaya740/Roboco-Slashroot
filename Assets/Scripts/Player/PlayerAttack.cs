@@ -30,7 +30,7 @@ public class PlayerAttack : MonoBehaviour
     void Awake(){
         isAttack = false;
         isMelee = false;
-        atkCooldown = 3.5f;
+        atkCooldown = 2.5f;
         playerBaseDamage = 5f;
         atkCooldownCount = 0f;
         
@@ -47,7 +47,6 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        print(playerDamage);
         var weaponBuff = weaponBuffParticle.main;
         weaponBuff.startColor = WeaponParticle();
         attackCooldownHandler();
@@ -81,13 +80,14 @@ public class PlayerAttack : MonoBehaviour
 
             attackDamageCalc();
             isAttack = false;
-            atkCooldownCount = 0;
+            atkCooldownCount = atkCooldown;
         }
     }
 
     private void attackCooldownHandler(){
         if(atkCooldownCount >= 0f){
             atkCooldownCount -= Time.fixedDeltaTime;
+            isAttack = false;
         }
     }
     

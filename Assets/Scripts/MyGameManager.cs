@@ -7,7 +7,7 @@ public class MyGameManager : MonoBehaviour
     public int playerCredits;
 
     private GameObject playerGameObject;
-    public GameObject respawnPoint;
+    private GameObject respawnPoint;
 
     private GameObject heart1;
     private GameObject heart2;

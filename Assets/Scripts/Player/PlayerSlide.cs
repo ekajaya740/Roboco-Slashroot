@@ -10,6 +10,7 @@ public class PlayerSlide : MonoBehaviour
     private float slidePower;
     private float maxSlideTime;
     public float slideTimer;
+    private float initialSlidePower;
 
     private float initialSlideCooldown;
     private float slideCooldown;
@@ -26,7 +27,8 @@ public class PlayerSlide : MonoBehaviour
     void Awake()
     {
         maxSlideTime = .5f;
-        slidePower = 350f;
+        initialSlidePower = 350f;
+        slidePower = initialSlidePower;
         initialSlideCooldown = 1f;
         slideCooldown = 0f;
     }
@@ -48,7 +50,12 @@ public class PlayerSlide : MonoBehaviour
     void FixedUpdate()
     {
         slideCooldownHandler();
-        if(isSlide && !playerMove.isMove && slideCooldown <= 0f){
+        if(isSlide && slideCooldown <= 0f){
+            if(playerMove.isMove){
+                slidePower = 150;
+            }else{
+                slidePower = initialSlidePower;
+            }
             slideTimer += Time.deltaTime;
             Vector3 slideDirection = Vector3.zero;
             if(isFacingRight){
@@ -65,6 +72,7 @@ public class PlayerSlide : MonoBehaviour
                 isSlide = false;
                 slideTimer = 0;
             }
+            
         }
     }
 
@@ -88,6 +96,7 @@ public class PlayerSlide : MonoBehaviour
     private void slideCooldownHandler(){
         if(slideCooldown >= 0f){
             slideCooldown -= Time.fixedDeltaTime;
+            isSlide = false;
         }
     }
 }

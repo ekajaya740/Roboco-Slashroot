@@ -47,11 +47,15 @@ public class PlayerMove : MonoBehaviour
     }
     
     private void Update(){
-        playerAnimator.SetFloat("Speed", Mathf.Abs(moveHorizontal));
-        move();
-        if(isMove){
-            playerSlide.isSlide = false;
+        if(playerSlide.isSlide){
+
+            playerAnimator.SetFloat("Speed", 0);
+        }else{
+            playerAnimator.SetFloat("Speed", Mathf.Abs(moveHorizontal));
+
         }
+        move();
+        
     }
 
     private void FixedUpdate(){
@@ -65,14 +69,12 @@ public class PlayerMove : MonoBehaviour
             if(isMoveL){
                 moveHorizontal = -movementSpeed;
                 playerAnimator.SetBool("isSlide", true);
-                playerSlide.slideTimer = 0;
                 isMove = true;
                 isFacingRight = false;
                 transform.rotation = Quaternion.Euler(transform.eulerAngles.x, 180f, transform.eulerAngles.z);
             }else if(isMoveR){
                 moveHorizontal = movementSpeed;
                 playerAnimator.SetBool("isSlide", true);
-                playerSlide.slideTimer = 0;
                 isMove = true;
                 isFacingRight = true;
                 transform.rotation = Quaternion.Euler(transform.eulerAngles.x, 0f, transform.eulerAngles.z);

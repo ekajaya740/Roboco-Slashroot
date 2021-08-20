@@ -24,7 +24,7 @@ public class PlayerJump : MonoBehaviour
     {
         isJump = false;
         initialExtraJump = 1;
-        jumpH = 6f;
+        jumpH = 6.1f;
     }
     void Start()
     {
@@ -45,9 +45,9 @@ public class PlayerJump : MonoBehaviour
     
     void FixedUpdate(){
         if(isJump){
-            isJump = false;
             extraJump--;
             playerRB.velocity = Vector2.up * jumpH;
+            isJump = false;
         }
     }
 
@@ -71,7 +71,7 @@ public class PlayerJump : MonoBehaviour
     }
 
     public void PointerJump(){
-        if(extraJump >= 0){
+        if(extraJump >= 0 ){
             isJump = true;
         }
     }
