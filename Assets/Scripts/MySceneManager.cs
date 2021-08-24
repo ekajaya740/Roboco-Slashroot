@@ -23,9 +23,8 @@ public class MySceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(isCanMoveStage);
         if(randomBoxTrigger == null){
-            randomBoxTrigger = GameObject.Find("RandomBoxTrigger").GetComponent<RandomBoxTrigger>();
+            randomBoxTrigger = GameObject.Find("Random Box").GetComponent<RandomBoxTrigger>();
         }
         MoveStage();
     }
@@ -47,7 +46,13 @@ public class MySceneManager : MonoBehaviour
                     randomBoxTrigger.isTriggered = false;
                     break;
                 case 2:
-                    Application.Quit();
+                    myGameManager.GetComponent<MyGameManager>().isLevelLoaded = true;
+                    SceneManager.LoadScene(3);
+                    isCanMoveStage = false;
+                    randomBoxTrigger.isTriggered = false;
+                    break;
+                case 3:
+                    print("Done");
                     break;
             }
         }

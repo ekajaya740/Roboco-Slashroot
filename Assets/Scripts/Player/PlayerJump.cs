@@ -40,6 +40,10 @@ public class PlayerJump : MonoBehaviour
             extraJump = initialExtraJump;
         }
 
+        if(!isGrounded()){
+            Physics2D.IgnoreLayerCollision(3,8, true);
+        }
+
         jumpAnimHandler();
     }
     
