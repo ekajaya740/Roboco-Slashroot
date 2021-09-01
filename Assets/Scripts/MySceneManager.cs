@@ -52,6 +52,12 @@ public class MySceneManager : MonoBehaviour
                     randomBoxTrigger.isTriggered = false;
                     break;
                 case 3:
+                    myGameManager.GetComponent<MyGameManager>().isLevelLoaded = true;
+                    SceneManager.LoadScene(4);
+                    isCanMoveStage = false;
+                    randomBoxTrigger.isTriggered = false;
+                    break;
+                case 4:
                     print("Done");
                     break;
             }
