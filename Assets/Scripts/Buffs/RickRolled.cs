@@ -6,6 +6,7 @@ public class RickRolled : MonoBehaviour
 {
     public bool isRickrolled;
     private AudioSource rickRoll;
+    private GameObject myBGM;
 
     void Awake(){
         isRickrolled = false;
@@ -13,11 +14,18 @@ public class RickRolled : MonoBehaviour
 
     void Update()
     {
+        if(myBGM == null){
+            myBGM = GameObject.Find("BGM");
+        }
+        
         if(rickRoll == null){
             rickRoll = GameObject.Find("RickRoll").GetComponent<AudioSource>();
         }
 
+        
+
         if(isRickrolled){
+            myBGM.SetActive(false);
             rickRoll.Play();
         }
     }

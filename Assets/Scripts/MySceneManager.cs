@@ -58,7 +58,15 @@ public class MySceneManager : MonoBehaviour
                     randomBoxTrigger.isTriggered = false;
                     break;
                 case 4:
-                    print("Done");
+                    myGameManager.GetComponent<MyGameManager>().isLevelLoaded = true;
+                    SceneManager.LoadScene(5);
+                    isCanMoveStage = false;
+                    randomBoxTrigger.isTriggered = false;
+                    break;
+                case 5:
+                    GameObject.Find("BGM").SetActive(false);
+                    GameObject.Find("RickRolled").SetActive(false);
+                    GameObject.Find("EndingSound").SetActive(true);
                     break;
             }
         }
