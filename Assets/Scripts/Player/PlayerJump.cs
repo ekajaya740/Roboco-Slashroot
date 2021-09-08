@@ -24,7 +24,7 @@ public class PlayerJump : MonoBehaviour
     {
         isJump = false;
         initialExtraJump = 1;
-        jumpH = 6.1f;
+        jumpH = 6.9f;
     }
     void Start()
     {

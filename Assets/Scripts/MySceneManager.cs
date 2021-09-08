@@ -36,37 +36,42 @@ public class MySceneManager : MonoBehaviour
                 case 0:
                     myGameManager.GetComponent<MyGameManager>().isLevelLoaded = true;
                     SceneManager.LoadScene(1);
+                    GameObject.Find("BGM").GetComponent<AudioSource>().Play();
                     isCanMoveStage = false;
                     randomBoxTrigger.isTriggered = false;
                     break;
                 case 1:
                     myGameManager.GetComponent<MyGameManager>().isLevelLoaded = true;
                     SceneManager.LoadScene(2);
+                    GameObject.Find("BGM").GetComponent<AudioSource>().Play();
                     isCanMoveStage = false;
                     randomBoxTrigger.isTriggered = false;
                     break;
                 case 2:
                     myGameManager.GetComponent<MyGameManager>().isLevelLoaded = true;
                     SceneManager.LoadScene(3);
+                    GameObject.Find("BGM").GetComponent<AudioSource>().Stop();
+                    GameObject.Find("RickRolled").GetComponent<AudioSource>().Play();
                     isCanMoveStage = false;
                     randomBoxTrigger.isTriggered = false;
                     break;
                 case 3:
                     myGameManager.GetComponent<MyGameManager>().isLevelLoaded = true;
                     SceneManager.LoadScene(4);
+                    GameObject.Find("RickRolled").GetComponent<AudioSource>().Play();
                     isCanMoveStage = false;
                     randomBoxTrigger.isTriggered = false;
                     break;
                 case 4:
                     myGameManager.GetComponent<MyGameManager>().isLevelLoaded = true;
                     SceneManager.LoadScene(5);
+                    GameObject.Find("RickRolled").GetComponent<AudioSource>().Play();
                     isCanMoveStage = false;
                     randomBoxTrigger.isTriggered = false;
                     break;
                 case 5:
-                    GameObject.Find("BGM").SetActive(false);
-                    GameObject.Find("RickRolled").SetActive(false);
-                    GameObject.Find("EndingSound").SetActive(true);
+                    GameObject.Find("RickRolled").GetComponent<AudioSource>().Stop();
+                    GameObject.Find("EndingSound").GetComponent<AudioSource>().Play();
                     break;
             }
         }

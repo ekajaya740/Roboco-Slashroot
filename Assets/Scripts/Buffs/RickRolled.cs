@@ -6,26 +6,22 @@ public class RickRolled : MonoBehaviour
 {
     public bool isRickrolled;
     private AudioSource rickRoll;
-    private GameObject myBGM;
-
-    void Awake(){
-        isRickrolled = false;
-    }
+    private AudioSource myBGM;
 
     void Update()
     {
         if(myBGM == null){
-            myBGM = GameObject.Find("BGM");
+            myBGM = GameObject.Find("BGM").GetComponent<AudioSource>();
         }
         
         if(rickRoll == null){
-            rickRoll = GameObject.Find("RickRoll").GetComponent<AudioSource>();
+            rickRoll = GameObject.Find("RickRolled").GetComponent<AudioSource>();
         }
 
         
 
         if(isRickrolled){
-            myBGM.SetActive(false);
+            myBGM.Stop();
             rickRoll.Play();
         }
     }
@@ -33,12 +29,6 @@ public class RickRolled : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider){
         if(collider.gameObject.tag == "Player"){
             isRickrolled = true;
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D collider){
-        if(collider.gameObject.tag == "Player"){
-            isRickrolled = false;
         }
     }
 }

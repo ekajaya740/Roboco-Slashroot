@@ -9,11 +9,12 @@ public class CursedCactus : MonoBehaviour
     private float damage;
     private float damageCooldown;
     private float initialDamageCooldown;
+
     void Awake(){
         isDamage = false;
         initialDamageCooldown = .5f;
         damageCooldown = 0f;
-        damage = 5f;
+        damage = 20f;
     }
 
     // Update is called once per frame

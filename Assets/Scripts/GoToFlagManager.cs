@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GoToFlagManager : MonoBehaviour
 {
@@ -31,6 +32,10 @@ public class GoToFlagManager : MonoBehaviour
         if(moveToFlag){
             player.transform.position = spawnFlag.transform.position;
             moveToFlag = false;
+            if(SceneManager.GetActiveScene().buildIndex == 4){
+                GameObject.Find("RickRolled").GetComponent<AudioSource>().Stop();
+                GameObject.Find("EndingSound").GetComponent<AudioSource>().Play();
+            }
         }
 
     }

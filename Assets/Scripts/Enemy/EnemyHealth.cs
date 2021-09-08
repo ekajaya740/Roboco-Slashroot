@@ -21,7 +21,7 @@ public class EnemyHealth : MonoBehaviour
 
 
     void Awake(){
-        maxEnemyHealth = 10000;
+        maxEnemyHealth = 12000;
         isDead = false;
         disposalCooldown = 3f;
     }
