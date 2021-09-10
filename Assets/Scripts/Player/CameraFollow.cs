@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
-    [SerializeField] private PlayerMove playerMove;
+    private GameObject player;
+    private PlayerMove playerMove;
     private float playerSpeed;
 
+    
+
     void Start(){
+        player = GameObject.Find("Player");
+        playerMove = player.GetComponent<PlayerMove>();
         DontDestroyOnLoad(gameObject);
         DontDestroyOnLoad(player);
         playerSpeed = playerMove.initialMovementSpeed;
@@ -16,6 +20,10 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
+        if(player == null){
+            player = GameObject.Find("Player");
+            DontDestroyOnLoad(player);
+        }
         float interpolation = playerSpeed * Time.deltaTime;
         Vector3 position = gameObject.transform.position;
 

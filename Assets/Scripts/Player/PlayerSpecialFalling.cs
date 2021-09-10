@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerSpecialFalling : MonoBehaviour
 {
     private GameObject player;
     private bool isBackToStage1;
+
+    private MySceneManager mySceneManager;
 
     // Update is called once per frame
     void Update()
@@ -15,10 +16,15 @@ public class PlayerSpecialFalling : MonoBehaviour
             player = GameObject.Find("Player");
         }
 
+        if(mySceneManager == null){
+            mySceneManager = GameObject.Find("Move Level").GetComponent<MySceneManager>();
+        }
+
         if(isBackToStage1){
-            SceneManager.LoadScene(0);
+            mySceneManager.MoveStageController(0, "BGM", "Stage 1 - Tutorial");
             isBackToStage1 = false;
         }
+        
     }
 
     void OnTriggerEnter2D(Collider2D collider){

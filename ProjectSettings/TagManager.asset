@@ -11,6 +11,10 @@ TagManager:
   - Move Stage
   - Fall
   - Enemy Spawner
+  - SpecialFall
+  - UI
+  - GameManager
+  - EventSystem
   layers:
   - Default
   - TransparentFX

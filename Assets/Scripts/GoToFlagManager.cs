@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GoToFlagManager : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class GoToFlagManager : MonoBehaviour
             player.transform.position = spawnFlag.transform.position;
             moveToFlag = false;
             if(SceneManager.GetActiveScene().buildIndex == 4){
+                GameObject.Find("StageDesc").GetComponentInChildren<TextMeshProUGUI>().SetText("おめでとう");
                 GameObject.Find("RickRolled").GetComponent<AudioSource>().Stop();
                 GameObject.Find("EndingSound").GetComponent<AudioSource>().Play();
             }
