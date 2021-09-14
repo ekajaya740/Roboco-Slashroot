@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [HideInInspector] public float playerHealth;
-    private float maxPlayerHealth;
+    [HideInInspector] public float playerHealthNow;
+    public float maxPlayerHealth { get; private set;}
     [SerializeField] private HealthBarManager healthBarManager;
     [SerializeField] private EnemyAttack enemyAttack;
     private PlayerMove playerMove;
@@ -27,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
     {
         playerRB = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
-        playerHealth = maxPlayerHealth;
+        playerHealthNow = maxPlayerHealth;
         gameManager = GameObject.Find("GameManager");
         myGameManager = gameManager.GetComponent<MyGameManager>();
         
@@ -38,7 +38,7 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthBarManager.SetHealth(playerHealth, maxPlayerHealth);
+        healthBarManager.SetHealth(playerHealthNow, maxPlayerHealth);
     }
 
     void FixedUpdate(){
@@ -46,8 +46,8 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator HealthRegen(){
         while(true){
-            if(playerHealth < maxPlayerHealth){
-                playerHealth += 1f;
+            if(playerHealthNow < maxPlayerHealth){
+                playerHealthNow += 1f;
             }
             yield return new WaitForSeconds(1);
 
@@ -58,8 +58,7 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator DeadState(){
         while(true){
-            if(playerHealth <= 0){
-
+            if(playerHealthNow <= 0){
                 isDead = true;
                 playerAnimator.SetTrigger("Dead");                
                 yield return new WaitForSeconds(0.9f);
@@ -67,7 +66,7 @@ public class PlayerHealth : MonoBehaviour
                 playerAnimator.ResetTrigger("Dead");
                 isDead = false;
                 myGameManager.RespawnToRP();
-                playerHealth = maxPlayerHealth;
+                playerHealthNow = maxPlayerHealth;
             }
             yield return null;
         }

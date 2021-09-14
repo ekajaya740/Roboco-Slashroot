@@ -22,6 +22,7 @@ public class PlayerSlide : MonoBehaviour
     private PlayerMove playerMove;
     private PlayerJump playerJump;
     private PlayerAttack playerAttack;
+    private GameObject slideCooldownView;
 
 
     void Awake()
@@ -43,12 +44,20 @@ public class PlayerSlide : MonoBehaviour
 
     void Update()
     {
+        if(slideCooldownView == null){
+            slideCooldownView = GameObject.Find("SlideCooldown");
+        }
+
+        if(slideCooldown <= 0f){
+            slideCooldownView.SetActive(false);
+        }
         isFacingRight = playerMove.isFacingRight;
         slideAnimHandler();
     }
 
     void FixedUpdate()
     {
+        
         slideCooldownHandler();
         if(isSlide && slideCooldown <= 0f){
             if(playerMove.isMove){
@@ -74,12 +83,13 @@ public class PlayerSlide : MonoBehaviour
             }
             
         }
+
     }
 
     private void slideAnimHandler(){
         if(isSlide){
             playerAnimator.SetBool("isSlide", true);
-            playerAttack.atkCooldownCount = 0;
+            playerAttack.atkCooldownCount = -0.01f;
             
         }else{
             playerAnimator.SetBool("isSlide", false);
@@ -97,6 +107,9 @@ public class PlayerSlide : MonoBehaviour
         if(slideCooldown >= 0f){
             slideCooldown -= Time.fixedDeltaTime;
             isSlide = false;
+            slideCooldownView.SetActive(true);
         }
+
+        
     }
 }

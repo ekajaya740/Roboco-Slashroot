@@ -16,6 +16,7 @@ public class MyGameManager : MonoBehaviour
     private GameObject UICanvas;
     private GameObject eventSystem;
     private GameObject cameraGameObject;
+    private PlayerHealth playerHealth;
 
     public bool isLevelLoaded;
     
@@ -36,6 +37,7 @@ public class MyGameManager : MonoBehaviour
         respawnPoint = GameObject.Find("RespawnPoint");
         cameraGameObject = GameObject.Find("Main Camera");
         gameOverPanel = GameObject.Find("GameOverPanel");
+        playerHealth = playerGameObject.GetComponent<PlayerHealth>();
 
         heart1 = GameObject.Find("Heart1");
         heart2 = GameObject.Find("Heart2");
@@ -59,6 +61,10 @@ public class MyGameManager : MonoBehaviour
             DontDestroyOnLoad(eventSystem);
         }
 
+        if(respawnPoint == null){
+            respawnPoint = GameObject.Find("RespawnPoint");
+        }
+
         if(heart1 == null){
             heart1 = GameObject.Find("Heart1");
         }
@@ -69,6 +75,10 @@ public class MyGameManager : MonoBehaviour
 
         if(heart3 == null){
             heart3 = GameObject.Find("Heart3");
+        }
+
+        if(gameOverPanel == null){
+            gameOverPanel = GameObject.Find("GameOverPanel");
         }
 
         RespawnIfFall();
@@ -84,15 +94,15 @@ public class MyGameManager : MonoBehaviour
 
     private void RespawnIfFall(){
         if(playerGameObject.GetComponent<PlayerMove>().isFalling){
-            RespawnToRP();
             playerCredits--;
+            RespawnToRP();
+            playerHealth.playerHealthNow = playerHealth.maxPlayerHealth;
             playerGameObject.GetComponent<PlayerMove>().isFalling = false;
         }
     }
 
     private void LevelLoadedRespawn(){
         if(isLevelLoaded){
-            respawnPoint = GameObject.Find("RespawnPoint");
             RespawnToRP();
             isLevelLoaded = false;
         }
@@ -102,8 +112,8 @@ public class MyGameManager : MonoBehaviour
         switch(playerCredits){
             case 0:
                 heart1.SetActive(false);
-                gameOverPanel.SetActive(true);
                 Time.timeScale = 0;
+                gameOverPanel.SetActive(true);
                 break;
             case 1:
                 heart2.SetActive(false);

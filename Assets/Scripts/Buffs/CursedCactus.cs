@@ -27,7 +27,7 @@ public class CursedCactus : MonoBehaviour
         DamageCooldownHandler();
 
         if(isDamage && damageCooldown > initialDamageCooldown){
-            playerGameObject.GetComponent<PlayerHealth>().playerHealth -= damage;
+            playerGameObject.GetComponent<PlayerHealth>().playerHealthNow -= damage;
         }
     }
 

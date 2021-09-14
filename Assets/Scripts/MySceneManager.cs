@@ -44,7 +44,8 @@ public class MySceneManager : MonoBehaviour
         if(randomBoxTrigger.isTriggered && CheckAllEnemyDead() && isCanMoveStage){
             switch(thisScene.buildIndex){
                 case 0:
-                    MoveStageController(4, "RickRolled", "Stage 5 - Hellium");
+                    // MoveStageController(3, "RickRolled", "Stage 4 - Skylar"); //TEST
+                    MoveStageController(1, "BGM", "Stage 2 - Hidden");
                     break;
                 case 1:
                     MoveStageController(2, "BGM", "Stage 3 - Deep Cave");

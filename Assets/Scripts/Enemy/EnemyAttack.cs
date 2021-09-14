@@ -46,7 +46,7 @@ public class EnemyAttack : MonoBehaviour
         }
         
         if(EnemyAttack.isAttack && attackCooldown >= initialAttackCooldown){
-            playerHealthClass.playerHealth -= enemyDamage;
+            playerHealthClass.playerHealthNow -= enemyDamage;
             attackCooldown = 0;
         }
     }

@@ -25,6 +25,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private GameObject playerBulletPos;
     
     [SerializeField] private ParticleSystem weaponBuffParticle;
+    private GameObject attackCooldownView;
     
 
     void Awake(){
@@ -47,6 +48,14 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
+        if(attackCooldownView == null){
+            attackCooldownView = GameObject.Find("AttackCooldown");
+        }
+
+        if(atkCooldownCount <= 0f){
+            attackCooldownView.SetActive(false);
+        }
+
         var weaponBuff = weaponBuffParticle.main;
         weaponBuff.startColor = WeaponParticle();
         attackCooldownHandler();
@@ -88,7 +97,10 @@ public class PlayerAttack : MonoBehaviour
         if(atkCooldownCount >= 0f){
             atkCooldownCount -= Time.fixedDeltaTime;
             isAttack = false;
+            attackCooldownView.SetActive(true);
         }
+
+        
     }
     
     private void attackDamageCalc(){
