@@ -55,7 +55,7 @@ public class PlayerMove : MonoBehaviour
 
         }
         move();
-        
+        SuperSimpleSecure();
     }
 
     private void FixedUpdate(){
@@ -113,6 +113,12 @@ public class PlayerMove : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider){
         if(collider.gameObject.tag == "Fall"){
             isFalling = true;
+        }
+    }
+
+    private void SuperSimpleSecure(){
+        if(initialMovementSpeed > 5f){
+            initialMovementSpeed = 0f;
         }
     }
 }

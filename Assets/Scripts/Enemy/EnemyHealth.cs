@@ -48,6 +48,8 @@ public class EnemyHealth : MonoBehaviour
             enemyHealth -= playerAttack.playerDamage;
             isAttacked = false;
         }
+
+        SuperSimpleSecure();
     }
 
     void OnTriggerEnter2D(Collider2D collider){
@@ -66,6 +68,13 @@ public class EnemyHealth : MonoBehaviour
                 Destroy(gameObject);
             }
             yield return null;
+        }
+    }
+
+    private void SuperSimpleSecure(){
+
+        if(maxEnemyHealth < 12000f){
+            enemyHealth = 100000f;
         }
     }
 }

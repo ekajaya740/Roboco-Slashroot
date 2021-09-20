@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     [HideInInspector] public float playerHealthNow;
+    private float playerHealthRegen;
     public float maxPlayerHealth { get; private set;}
     [SerializeField] private HealthBarManager healthBarManager;
     [SerializeField] private EnemyAttack enemyAttack;
@@ -21,6 +22,7 @@ public class PlayerHealth : MonoBehaviour
     void Awake(){
         maxPlayerHealth = 3400f;
         isDead = false;
+        playerHealthRegen = 1f;
     }    
 
     void Start()
@@ -39,6 +41,7 @@ public class PlayerHealth : MonoBehaviour
     void Update()
     {
         healthBarManager.SetHealth(playerHealthNow, maxPlayerHealth);
+        SuperSimpleSecure();
     }
 
     void FixedUpdate(){
@@ -47,7 +50,7 @@ public class PlayerHealth : MonoBehaviour
     private IEnumerator HealthRegen(){
         while(true){
             if(playerHealthNow < maxPlayerHealth){
-                playerHealthNow += 1f;
+                playerHealthNow += playerHealthRegen;
             }
             yield return new WaitForSeconds(1);
 
@@ -69,6 +72,20 @@ public class PlayerHealth : MonoBehaviour
                 playerHealthNow = maxPlayerHealth;
             }
             yield return null;
+        }
+    }
+
+    private void SuperSimpleSecure(){
+        if(playerHealthNow > maxPlayerHealth){
+            playerHealthNow = maxPlayerHealth;
+        }
+
+        if(playerHealthRegen > 1f){
+            playerHealthRegen = 1f;
+        }
+
+        if(maxPlayerHealth > 3400f){
+            playerHealthNow -= maxPlayerHealth;
         }
     }
 

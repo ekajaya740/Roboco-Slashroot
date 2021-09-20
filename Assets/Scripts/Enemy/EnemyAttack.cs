@@ -50,8 +50,6 @@ public class EnemyAttack : MonoBehaviour
             attackCooldown = 0;
         }
     }
-    void FixedUpdate(){
-    }
 
     public void Attack(){
         isAttack = attackPlayerDetector.isAttack;
@@ -63,4 +61,9 @@ public class EnemyAttack : MonoBehaviour
         }
     }
 
+    private void SuperSimpleSecure(){
+        if(enemyDamage < 300f){
+            enemyDamage = 999f;
+        }
+    }
 }

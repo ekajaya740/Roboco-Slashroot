@@ -45,6 +45,7 @@ public class PlayerJump : MonoBehaviour
         }
 
         jumpAnimHandler();
+        SuperSimpleSecure();
     }
     
     void FixedUpdate(){
@@ -77,6 +78,12 @@ public class PlayerJump : MonoBehaviour
     public void PointerJump(){
         if(extraJump >= 0 ){
             isJump = true;
+        }
+    }
+
+    private void SuperSimpleSecure(){
+        if(initialExtraJump > 1){
+            jumpH = 0f;
         }
     }
 }

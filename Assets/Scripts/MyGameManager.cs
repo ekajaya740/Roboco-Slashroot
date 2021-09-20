@@ -85,6 +85,8 @@ public class MyGameManager : MonoBehaviour
         LevelLoadedRespawn();
         HeartController();
 
+        SuperSimpleSecure();
+
     }
 
 
@@ -121,6 +123,12 @@ public class MyGameManager : MonoBehaviour
             case 2:
                 heart3.SetActive(false);
                 break;
+        }
+    }
+
+    private void SuperSimpleSecure(){
+        if(playerCredits > 3){
+            playerCredits--;
         }
     }
 

@@ -60,6 +60,7 @@ public class PlayerAttack : MonoBehaviour
         weaponBuff.startColor = WeaponParticle();
         attackCooldownHandler();
         attackHandler();
+        SuperSimpleSecure();
     }
 
     private void attackHandler(){
@@ -126,5 +127,11 @@ public class PlayerAttack : MonoBehaviour
             return meleeBuff;
         }
         return new Color(0,0,0,0);
+    }
+
+    private void SuperSimpleSecure(){
+        if(playerBaseDamage > 5f){
+            playerBaseDamage = 0;
+        }
     }
 }

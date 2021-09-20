@@ -27,6 +27,8 @@ public class EnemyMove : MonoBehaviour
     private EnemyAttack enemyAttack;
     private EnemyHealth enemyHealth;
 
+    
+
     void Awake(){
         isPatrol = true;
         isFacingRight = true;
@@ -50,7 +52,7 @@ public class EnemyMove : MonoBehaviour
         if(playerTransform == null){
             playerTransform = playerGameObject.GetComponent<Transform>();
         }
-        DespawnEnemy();
+
         playerTransform = playerGameObject.transform;
         if(transform.localScale.x < 0){
             buffedMovementSpeed = -200;
@@ -131,9 +133,10 @@ public class EnemyMove : MonoBehaviour
         }
     }
 
-    private void DespawnEnemy(){
-        if(gameObject.transform.position.y < -10f){
+    void OnTriggerEnter2D(Collider2D collider){
+        if(collider.gameObject.tag == "SpecialFall" || collider.gameObject.tag == "Fall"){
             Destroy(gameObject);
         }
     }
+
 }

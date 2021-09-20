@@ -40,6 +40,7 @@ public class PlayerSlide : MonoBehaviour
         playerMove = GetComponent<PlayerMove>();
         playerJump = GetComponent<PlayerJump>();
         playerAttack = GetComponent<PlayerAttack>();
+        slideCooldownView = GameObject.Find("SlideCooldown");
     }
 
     void Update()
