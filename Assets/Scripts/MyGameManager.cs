@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class MyGameManager : MonoBehaviour
 {
+    //https://www.dafont.com/pixels.font
     public int playerCredits;
-
     private GameObject playerGameObject;
     private GameObject respawnPoint;
-
     private GameObject heart1;
     private GameObject heart2;
     private GameObject heart3;
