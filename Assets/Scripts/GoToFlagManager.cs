@@ -33,8 +33,8 @@ public class GoToFlagManager : MonoBehaviour
         if(moveToFlag){
             player.transform.position = spawnFlag.transform.position;
             moveToFlag = false;
-            if(SceneManager.GetActiveScene().buildIndex == 4){
-                GameObject.Find("StageDesc").GetComponentInChildren<TextMeshProUGUI>().SetText("おめでとう");
+            if(SceneManager.GetActiveScene().buildIndex == 5){
+                GameObject.Find("StageDesc").GetComponentInChildren<TextMeshProUGUI>().SetText("Selamat");
                 GameObject.Find("RickRolled").GetComponent<AudioSource>().Stop();
                 GameObject.Find("EndingSound").GetComponent<AudioSource>().Play();
             }

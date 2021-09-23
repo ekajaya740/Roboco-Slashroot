@@ -21,7 +21,7 @@ public class PlayerSpecialFalling : MonoBehaviour
         }
 
         if(isBackToStage1){
-            mySceneManager.MoveStageController(0, "BGM", "Stage 1 - Tutorial");
+            mySceneManager.MoveStageController(1, "BGM", "Stage 1 - Tutorial");
             isBackToStage1 = false;
         }
         

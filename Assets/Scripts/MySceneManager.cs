@@ -10,6 +10,8 @@ public class MySceneManager : MonoBehaviour
     [SerializeField] private RandomBoxTrigger randomBoxTrigger;
     private GameObject myGameManager;
     private Scene thisScene;
+    private TextMeshProUGUI enemyCountText;
+    private TextMeshProUGUI getKeyText;
 
     void Awake(){
         isCanMoveStage = false;
@@ -18,6 +20,8 @@ public class MySceneManager : MonoBehaviour
     void Start()
     {
         myGameManager = GameObject.Find("GameManager");
+        enemyCountText = GameObject.Find("EnemyCountText").GetComponentInChildren<TextMeshProUGUI>();
+        getKeyText = GameObject.Find("GetKeyText").GetComponentInChildren<TextMeshProUGUI>();
         thisScene = SceneManager.GetActiveScene();
     }
 
@@ -36,6 +40,20 @@ public class MySceneManager : MonoBehaviour
             GameObject.Find("RickRolled").GetComponent<AudioSource>().Stop();
             GameObject.Find("BGM").GetComponent<AudioSource>().Stop();
         }
+
+        if(CheckAllEnemyDead()){
+            enemyCountText.SetText("WIPED OUT");
+        }else if(!CheckAllEnemyDead()){
+            enemyCountText.SetText("ENEMY NEARBY");
+        }
+
+        if(randomBoxTrigger.isTriggered){
+            getKeyText.SetText("HAVE KEY");
+        }else if(!randomBoxTrigger.isTriggered){
+            getKeyText.SetText("NO KEY");
+        }
+
+        
         MoveStage();
     }
 
@@ -43,19 +61,18 @@ public class MySceneManager : MonoBehaviour
     private void MoveStage(){
         if(randomBoxTrigger.isTriggered && CheckAllEnemyDead() && isCanMoveStage){
             switch(thisScene.buildIndex){
-                case 0:
-                    // MoveStageController(3, "RickRolled", "Stage 4 - Skylar"); //TEST
-                    MoveStageController(1, "BGM", "Stage 2 - Hidden");
-                    break;
                 case 1:
-                    MoveStageController(2, "BGM", "Stage 3 - Deep Cave");
+                    MoveStageController(2, "BGM", "Stage 2 - Hidden");
                     break;
                 case 2:
-                    MoveStageController(3, "RickRolled", "Stage 4 - Skylar");
-                    GameObject.Find("BGM").GetComponent<AudioSource>().Stop();
+                    MoveStageController(3, "BGM", "Stage 3 - Deep Cave");
                     break;
                 case 3:
-                    MoveStageController(4, "RickRolled", "Stage 5 - Hellium");
+                    MoveStageController(4, "RickRolled", "Stage 4 - Skylar");
+                    GameObject.Find("BGM").GetComponent<AudioSource>().Stop();
+                    break;
+                case 4:
+                    MoveStageController(5, "RickRolled", "Stage 5 - Hellium");
                     break;
             }
         }
