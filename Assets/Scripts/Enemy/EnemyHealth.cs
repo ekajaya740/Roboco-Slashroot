@@ -7,7 +7,6 @@ public class EnemyHealth : MonoBehaviour
     [HideInInspector] public float enemyHealth;
     private float maxEnemyHealth;
     [SerializeField] private HealthBarManager healthBarManager;
-    [SerializeField] private PlayerAttack playerAttack;
     private Animator enemyAnimator;
 
     private EnemyMove enemyMove;
@@ -15,6 +14,8 @@ public class EnemyHealth : MonoBehaviour
     private bool isAttacked;
     public bool isDead {get; private set;}
     private GameObject playerGameObject;
+    [SerializeField] private PlayerAttack playerAttack;
+    private PlayerMove playerMove;
     private float disposalCooldown;
 
     
@@ -33,10 +34,10 @@ public class EnemyHealth : MonoBehaviour
         enemyHealth = maxEnemyHealth;
         playerGameObject = GameObject.Find("Player");
         playerAttack = playerGameObject.GetComponent<PlayerAttack>();
+        playerMove = playerGameObject.GetComponent<PlayerMove>();
         StartCoroutine(DeadHandle());
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(playerAttack == null){
@@ -45,7 +46,13 @@ public class EnemyHealth : MonoBehaviour
 
         healthBarManager.SetHealth(enemyHealth, maxEnemyHealth);
         if(isAttacked){
-            enemyHealth -= playerAttack.playerDamage;
+            if(playerAttack.isMelee){
+                if(playerMove.isFacingRight != enemyMove.isFacingRight){
+                    enemyHealth -= playerAttack.playerDamage;
+                }
+            }else{
+                enemyHealth -= playerAttack.playerDamage;
+            }
             isAttacked = false;
         }
 
@@ -53,6 +60,10 @@ public class EnemyHealth : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D collider){
+        if(collider.gameObject.tag == "Player Projectile"){
+            isAttacked = true;
+        }
+
         if(collider.gameObject.tag == "Player Attack"){
             isAttacked = true;
         }

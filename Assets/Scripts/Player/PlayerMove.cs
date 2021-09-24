@@ -32,7 +32,7 @@ public class PlayerMove : MonoBehaviour
         isMove = false;
         isFalling = false;
         isFacingRight = true;
-        initialMovementSpeed = 4.1f;
+        initialMovementSpeed = 5f;
 
     }
 

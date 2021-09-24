@@ -15,6 +15,7 @@ TagManager:
   - UI
   - GameManager
   - EventSystem
+  - Player Projectile
   layers:
   - Default
   - TransparentFX

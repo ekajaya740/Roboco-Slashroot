@@ -6,7 +6,7 @@ public class PlayerAttack : MonoBehaviour
 {
 
     public bool isAttack { get; private set;}
-    private bool isMelee;
+    public bool isMelee { get; private set;}
     private char whichWeaponNotBuffed;
     private char weaponNow;
     public float atkCooldown { get; private set;}
