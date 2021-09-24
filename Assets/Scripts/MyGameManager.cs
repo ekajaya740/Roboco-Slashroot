@@ -11,7 +11,6 @@ public class MyGameManager : MonoBehaviour
     private GameObject heart1;
     private GameObject heart2;
     private GameObject heart3;
-    private GameObject gameOverPanel;
     private GameObject UICanvas;
     private GameObject eventSystem;
     private GameObject cameraGameObject;
@@ -35,7 +34,6 @@ public class MyGameManager : MonoBehaviour
         playerGameObject = GameObject.Find("Player");
         respawnPoint = GameObject.Find("RespawnPoint");
         cameraGameObject = GameObject.Find("Main Camera");
-        gameOverPanel = GameObject.Find("GameOverPanel");
         playerHealth = playerGameObject.GetComponent<PlayerHealth>();
 
         heart1 = GameObject.Find("Heart1");
@@ -76,9 +74,6 @@ public class MyGameManager : MonoBehaviour
             heart3 = GameObject.Find("Heart3");
         }
 
-        if(gameOverPanel == null){
-            gameOverPanel = GameObject.Find("GameOverPanel");
-        }
 
         RespawnIfFall();
         LevelLoadedRespawn();
@@ -112,8 +107,7 @@ public class MyGameManager : MonoBehaviour
         switch(playerCredits){
             case 0:
                 heart1.SetActive(false);
-                Time.timeScale = 0;
-                gameOverPanel.SetActive(true);
+                Application.Quit();
                 break;
             case 1:
                 heart2.SetActive(false);
