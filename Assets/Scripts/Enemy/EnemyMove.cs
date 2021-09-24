@@ -34,7 +34,7 @@ public class EnemyMove : MonoBehaviour
         isFacingRight = true;
         normalMovementSpeed = 100;
         movementSpeed = normalMovementSpeed;
-        buffedMovementSpeed = 280;
+        buffedMovementSpeed = 230;
     }
     
     void Start()
@@ -55,10 +55,10 @@ public class EnemyMove : MonoBehaviour
 
         playerTransform = playerGameObject.transform;
         if(transform.localScale.x < 0){
-            buffedMovementSpeed = -280;
+            buffedMovementSpeed = -220;
             normalMovementSpeed = -100;
         }else if(transform.localScale.x > 0){
-            buffedMovementSpeed = 280;
+            buffedMovementSpeed = 220;
             normalMovementSpeed = 100;
         }
 
