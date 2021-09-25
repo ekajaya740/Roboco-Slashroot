@@ -30,6 +30,7 @@ public class PlayerBullets : MonoBehaviour
                 destroyBullet();
             }
             destroyTime -= Time.fixedDeltaTime;
+            isTouchEnemy = false;
         }
     }
 

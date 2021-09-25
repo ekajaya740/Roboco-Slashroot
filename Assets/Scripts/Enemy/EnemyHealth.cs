@@ -15,6 +15,7 @@ public class EnemyHealth : MonoBehaviour
     public bool isDead {get; private set;}
     private GameObject playerGameObject;
     [SerializeField] private PlayerAttack playerAttack;
+    private EnemyDetectPlayerAttack enemyDetectPlayerAttack;
     private PlayerMove playerMove;
     private float disposalCooldown;
 
@@ -25,12 +26,14 @@ public class EnemyHealth : MonoBehaviour
         maxEnemyHealth = 12000;
         isDead = false;
         disposalCooldown = 3f;
+        isAttacked = false;
     }
     
     void Start()
     {
         enemyAnimator = GetComponent<Animator>();
         enemyMove = GetComponent<EnemyMove>();
+        enemyDetectPlayerAttack = GetComponentInChildren<EnemyDetectPlayerAttack>();
         enemyHealth = maxEnemyHealth;
         playerGameObject = GameObject.Find("Player");
         playerAttack = playerGameObject.GetComponent<PlayerAttack>();
@@ -43,6 +46,7 @@ public class EnemyHealth : MonoBehaviour
         if(playerAttack == null){
             playerAttack = playerGameObject.GetComponent<PlayerAttack>();
         }
+        isAttacked = enemyDetectPlayerAttack.isAttacked;
 
         healthBarManager.SetHealth(enemyHealth, maxEnemyHealth);
         if(isAttacked){
@@ -59,15 +63,7 @@ public class EnemyHealth : MonoBehaviour
         SuperSimpleSecure();
     }
 
-    void OnTriggerEnter2D(Collider2D collider){
-        if(collider.gameObject.tag == "Player Projectile"){
-            isAttacked = true;
-        }
-
-        if(collider.gameObject.tag == "Player Attack"){
-            isAttacked = true;
-        }
-    }
+    
 
     private IEnumerator DeadHandle(){
         while(true){
